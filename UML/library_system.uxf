@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>16</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>752</x>
+      <y>16</y>
+      <w>1056</w>
+      <h>320</h>
+    </coordinates>
+    <panel_attributes>LibrarySystem
+--
+--
++LibrarySystem(): ctor
++addBookWithTitleAndNameOfSingleAuthor(String title, String authorName): void
++addBookWithTitleAndAuthorList(String title, List&lt;Author&gt; authors): void
++addStudentUser(String name, boolean feePaid): void
++addFacultyMemberUser(String name, String department): void
++findBookByTitle(String title): Book
++findUserByName(String name): User
++borrowBook(User user, Book book): void
++extendLending(FacultyMember facultyMember, Book book, LocalDate newDueDate): void
++returnBook(User user, Book book): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>576</y>
+      <w>480</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>Lending
+--
+-dueDate: java.time.LocalDate
+--
++Lending(Book book, User user): ctor
++getDueDate(): LocalDate
++setDueDate(LocalDate dueDate): void
++getBook(): Book
++setBook(Book book): void
++getUser(): User
++setUser(User user): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>624</y>
+      <w>576</w>
+      <h>256</h>
+    </coordinates>
+    <panel_attributes>Book
+--
+-title: String
+--
++Book(String title, String authorName): ctor
++Book(String title, List&lt;Author&gt; authors): ctor
++getAuthors(): List&lt;Author&gt;
++setAuthors(List&lt;Author&gt; authors): void
++addAuthor(Author author): void
++getTitle(): String
++setTitle(String title): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>176</x>
+      <y>1008</y>
+      <w>368</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>Author
+--
+-name: String
+--
++Author(String name): ctor
++getName(): String
++setName(String name): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>592</x>
+      <y>1008</y>
+      <w>544</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>Student
+--
+-feePaid: boolean
+--
++Student(String name, boolean feePaid): ctor
++isFeePaid(): boolean
++setFeePaid(boolean feePaid): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1440</x>
+      <y>640</y>
+      <w>368</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>/User {abstract}/
+--
+-name: String
+--
++User(String name): ctor
++getName(): String
++setName(String name): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1152</x>
+      <y>1008</y>
+      <w>656</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>FacultyMember
+--
+-department: String
+--
++FacultyMember(String name, String department): ctor
++getDepartment(): String
++setDepartment(String department): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>160</y>
+      <w>496</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>UserOrBookDoesNotExistException
+--
+--
++UserOrBookDoesNotExistException
+                              (String message): ctor
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1664</x>
+      <y>816</y>
+      <w>48</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>848</x>
+      <y>816</y>
+      <w>720</w>
+      <h>224</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>430.0;10.0;430.0;70.0;10.0;70.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>368</x>
+      <y>864</y>
+      <w>128</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1..n
+authors</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>528</x>
+      <y>320</y>
+      <w>448</w>
+      <h>336</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0..n</panel_attributes>
+    <additional_attributes>260.0;10.0;260.0;140.0;10.0;140.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>688</y>
+      <w>160</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+book</panel_attributes>
+    <additional_attributes>10.0;20.0;80.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1312</x>
+      <y>640</y>
+      <w>160</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=1
+user</panel_attributes>
+    <additional_attributes>80.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1072</x>
+      <y>320</y>
+      <w>96</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1600</x>
+      <y>320</y>
+      <w>96</w>
+      <h>352</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>80</y>
+      <w>208</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;throws&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;20.0;110.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>512</x>
+      <y>272</y>
+      <w>272</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;throws&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>464</y>
+      <w>144</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;throws&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>368</y>
+      <w>592</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>EmptyAuthorListException
+--
+--
++EmptyAuthorListException(String message): ctor
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>160</x>
+      <y>16</y>
+      <w>336</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>java.lang.Exception</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>48</y>
+      <w>48</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>192</x>
+      <y>48</y>
+      <w>48</w>
+      <h>352</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>464</x>
+      <y>576</y>
+      <w>112</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>books
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>976</x>
+      <y>528</y>
+      <w>144</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lendings
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>1536</x>
+      <y>592</y>
+      <w>112</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>users
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1280</x>
+      <y>368</y>
+      <w>256</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>java.time.LocalDate
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1376</x>
+      <y>272</y>
+      <w>128</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=.
+</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1248</x>
+      <y>496</y>
+      <w>304</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>Constructor sets a due 
+date 30 days from now.
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1248</x>
+      <y>544</y>
+      <w>64</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=.
+</panel_attributes>
+    <additional_attributes>20.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>528</x>
+      <y>16</y>
+      <w>208</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>provided by Java
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>0</y>
+      <w>80</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.
+</panel_attributes>
+    <additional_attributes>10.0;30.0;30.0;20.0</additional_attributes>
+  </element>
+</diagram>
