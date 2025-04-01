@@ -1,6 +1,6 @@
-package is.hi.hbv202g.lokaverkefni;
+package is.hi.hbv202g.lokaverkefni.command;
 
-interface Command {
+public interface Command {
     /**
      * Executes the command.
      */

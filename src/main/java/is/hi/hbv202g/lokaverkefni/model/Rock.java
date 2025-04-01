@@ -1,6 +1,15 @@
-package is.hi.hbv202g.lokaverkefni;
+package is.hi.hbv202g.lokaverkefni.model;
+
+import is.hi.hbv202g.lokaverkefni.GameTheme;
 
 public class Rock implements Move {
+    private final GameTheme theme;
+    private final int moveIndex = 0;  // Rock is index 0
+
+    public Rock(GameTheme theme) {
+        this.theme = theme;
+    }
+
     @Override
     public Result compareWith(Move other) {
         if (other instanceof Rock) return Result.DRAW;
@@ -10,6 +19,6 @@ public class Rock implements Move {
 
     @Override
     public String getName() {
-        return "Rock";
+        return theme.getMoveName(moveIndex);
     }
 }

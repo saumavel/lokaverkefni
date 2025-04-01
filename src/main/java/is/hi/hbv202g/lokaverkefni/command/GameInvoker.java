@@ -1,4 +1,4 @@
-package is.hi.hbv202g.lokaverkefni;
+package is.hi.hbv202g.lokaverkefni.command;
 
 import java.util.ArrayList;
 import java.util.List;

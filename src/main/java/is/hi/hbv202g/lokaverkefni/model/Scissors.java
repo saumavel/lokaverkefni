@@ -1,6 +1,15 @@
-package is.hi.hbv202g.lokaverkefni;
+package is.hi.hbv202g.lokaverkefni.model;
+
+import is.hi.hbv202g.lokaverkefni.GameTheme;
 
 public class Scissors implements Move {
+    private final GameTheme theme;
+    private final int moveIndex = 2;  // Scissors is index 2
+
+    public Scissors(GameTheme theme) {
+        this.theme = theme;
+    }
+
     @Override
     public Result compareWith(Move other) {
         if (other instanceof Scissors) return Result.DRAW;
@@ -10,6 +19,6 @@ public class Scissors implements Move {
 
     @Override
     public String getName() {
-        return "Scissors";
+        return theme.getMoveName(moveIndex);
     }
 }

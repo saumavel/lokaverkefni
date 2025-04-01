@@ -1,4 +1,4 @@
-package is.hi.hbv202g.lokaverkefni;
+package is.hi.hbv202g.lokaverkefni.model;
 
 public interface Move {
     Result compareWith(Move other);
