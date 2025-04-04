@@ -13,7 +13,7 @@ public class GameManager {
     private final Scanner scanner;
     private int consecutiveWins = 0;
     private int consecutiveLosses = 0; // Track consecutive losses
-    private boolean isComputerGame;
+    private GameMode gameMode;
     private ComputerPlayerStrategy.DifficultyLevel currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.EASY;
 
     // Replace individual score tracking with ScoreManager
@@ -97,14 +97,14 @@ public class GameManager {
 
         if (input.equals("1")) {
             setupOnePlayerGame();
-            isComputerGame = true;
+            gameMode = GameMode.SINGLE_PLAYER;
         } else if (input.equals("2")) {
             setupTwoPlayerGame();
-            isComputerGame = false;
+            gameMode = GameMode.MULTIPLAYER;
         } else {
             System.out.println("Invalid input. Defaulting to one player game.");
             setupDefaultOnePlayerGame();
-            isComputerGame = true;
+            gameMode = GameMode.SINGLE_PLAYER;
         }
 
         // Register players with the score manager
@@ -198,12 +198,12 @@ public class GameManager {
         System.out.println("\n===== ROUND " + (roundsPlayed + 1) + " =====");
 
         // Check if player has lost 5 times in a row and show secret message
-        if (consecutiveLosses >= 5 && isComputerGame) {
+        if (consecutiveLosses >= 5 &&  gameMode == GameMode.SINGLE_PLAYER) {
             System.out.println("\n🤫 Hate losing? Press 'u' and see what happens. It will be our little secret. 🤫\n");
         }
 
         boolean continueGame;
-        if (isComputerGame) {
+        if (gameMode == GameMode.SINGLE_PLAYER) {
             continueGame = playComputerRound();
         } else {
             continueGame = playTwoPlayerRound();
@@ -227,7 +227,7 @@ public class GameManager {
         scoreManager.recordRoundPlayed();
 
         // Check if player1 won and offer difficulty increase if needed
-        if (consecutiveWins >= 5 && isComputerGame && currentDifficulty != ComputerPlayerStrategy.DifficultyLevel.HARD) {
+        if (consecutiveWins >= 5 && gameMode == GameMode.SINGLE_PLAYER && currentDifficulty != ComputerPlayerStrategy.DifficultyLevel.HARD) {
             offerDifficultyIncrease();
         }
 
@@ -298,11 +298,7 @@ public class GameManager {
         }
 
         // Player 2's turn
-        if (!getPlayerMove(player2)) {
-            return false;
-        }
-
-        return true;
+        return getPlayerMove(player2);
     }
 
     /**
@@ -384,7 +380,7 @@ public class GameManager {
         }
         // Check if player2 won
         else if (result.startsWith(player2.getName() + " wins")) {
-            if (isComputerGame) {
+            if (gameMode == GameMode.SINGLE_PLAYER) {
                 // If it is a computer game, then the player is the
                 // computer and the message should be different
                 System.out.println("💻 COMPUTER WINS THIS ROUND! 💻");

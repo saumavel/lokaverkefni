@@ -1,3 +1,10 @@
+/****************************************************************
+ * ComputerPlayerStrategy.java
+ *
+ *
+ *
+ ****************************************************************/
+
 package is.hi.hbv202g.lokaverkefni.strategy;
 
 import is.hi.hbv202g.lokaverkefni.GameTheme;
@@ -74,7 +81,6 @@ public class ComputerPlayerStrategy {
             case EASY -> selectRandomMove();
             case MEDIUM -> selectMediumMove(opponentLastMove);
             case HARD -> selectHardMove(opponentLastMove);
-            default -> selectRandomMove();
         };
     }
 
