@@ -1,6 +1,6 @@
 package is.hi.hbv202g.lokaverkefni.model;
 
-import is.hi.hbv202g.lokaverkefni.GameTheme;
+import is.hi.hbv202g.lokaverkefni.options.GameTheme;
 
 public class MoveFactory {
     private final GameTheme theme;
