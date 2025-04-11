@@ -14,24 +14,21 @@ public enum GameTheme {
      * @return The name of the move
      */
     public String getMoveName(int index) {
-        switch (this) {
-            case STANDARD:
-                return switch (index) {
-                    case 0 -> OptionsManager.get("rock");
-                    case 1 -> OptionsManager.get("paper");
-                    case 2 -> OptionsManager.get("scissors");
-                    default -> "Unknown";
-                };
-            case BATHROOM:
-                switch (index) {
-                    case 0: return OptionsManager.get("poop");
-                    case 1: return OptionsManager.get("toilet_paper");
-                    case 2: return OptionsManager.get("pee");
-                    default: return "Unknown";
-                }
-            default:
-                return "Unknown";
-        }
+        return switch (this) {
+            case STANDARD -> switch (index) {
+                case 0 -> OptionsManager.get("rock");
+                case 1 -> OptionsManager.get("paper");
+                case 2 -> OptionsManager.get("scissors");
+                default -> "Unknown";
+            };
+            case BATHROOM -> switch (index) {
+                case 0 -> OptionsManager.get("poop");
+                case 1 -> OptionsManager.get("toilet_paper");
+                case 2 -> OptionsManager.get("pee");
+                default -> "Unknown";
+            };
+            default -> "Unknown";
+        };
     }
 
     /**

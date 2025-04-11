@@ -9,7 +9,15 @@ import java.util.Map;
 public class OptionsManager {
     private static Language currentLanguage = Language.ENGLISH; // Default language
     private static final Map<String, Map<Language, String>> translations = new HashMap<>();
+    // Maps for theme-specific move names and their indices
+    private static final Map<String, Integer> standardMoveMap = new HashMap<>();
+    private static final Map<String, Integer> bathroomMoveMap = new HashMap<>();
 
+    // Maps for common responses
+    private static final Map<String, Boolean> yesNoResponses = new HashMap<>();
+
+    // Maps for difficulty levels
+    private static final Map<String, String> difficultyMap = new HashMap<>();
     // Initialize translations
     static {
         // Game setup translations
@@ -183,7 +191,92 @@ public class OptionsManager {
                 "Select language / Veldu tungumál:");
         addTranslation("english", "English", "Enska");
         addTranslation("icelandic", "Icelandic", "Íslenska");
+
+        addTranslation("invalid_choice_number",
+                "Invalid choice. Please try again!",
+                "Ógilt val. Vinsamlegast reyndu aftur!");
+
+        addTranslation("invalid_name",
+                "Name cannot be empty. Please enter at least one character.",
+                "Nafn má ekki vera tómt. Vinsamlegast sláðu inn að minnsta kosti einn staf.");
+
+        // Initialize move name mappings
+        initializeMoveNameMappings();
+
+        // Initialize yes/no responses
+        initializeYesNoResponses();
+
+        // Initialize difficulty mappings
+        initializeDifficultyMappings();
     }
+
+    /**
+     * Initializes the mapping between move names and their indices.
+     * This supports both English and Icelandic names for moves.
+     */
+    private static void initializeMoveNameMappings() {
+        // Standard theme moves
+        // English
+        standardMoveMap.put("rock", 0);
+        standardMoveMap.put("paper", 1);
+        standardMoveMap.put("scissors", 2);
+        // Icelandic
+        standardMoveMap.put("steinn", 0);
+        standardMoveMap.put("blað", 1);
+        standardMoveMap.put("skæri", 2);
+
+        // Bathroom theme moves
+        // English
+        bathroomMoveMap.put("poop", 0);
+        bathroomMoveMap.put("toilet paper", 1);
+        bathroomMoveMap.put("toiletpaper", 1);
+        bathroomMoveMap.put("pee", 2);
+        // Icelandic
+        bathroomMoveMap.put("kúkur", 0);
+        bathroomMoveMap.put("klósettpappír", 1);
+        bathroomMoveMap.put("piss", 2);
+    }
+
+    /**
+     * Initializes common yes/no responses for both languages.
+     */
+    private static void initializeYesNoResponses() {
+        // English affirmative responses
+        yesNoResponses.put("y", true);
+        yesNoResponses.put("yes", true);
+        yesNoResponses.put("yeah", true);
+        yesNoResponses.put("yep", true);
+
+        // Icelandic affirmative responses
+        yesNoResponses.put("j", true);
+        yesNoResponses.put("já", true);
+        yesNoResponses.put("jú", true);
+
+        // English negative responses
+        yesNoResponses.put("n", false);
+        yesNoResponses.put("no", false);
+        yesNoResponses.put("nope", false);
+
+        // Icelandic negative responses
+        yesNoResponses.put("nei", false);
+    }
+    /**
+     * Initializes difficulty level mappings.
+     */
+    private static void initializeDifficultyMappings() {
+        // English
+        difficultyMap.put("man", "1");
+        difficultyMap.put("easy", "2");
+        difficultyMap.put("medium", "3");
+        difficultyMap.put("hard", "4");
+
+        // Icelandic
+        difficultyMap.put("maður", "1");
+        difficultyMap.put("auðvelt", "2");
+        difficultyMap.put("miðlungs", "3");
+        difficultyMap.put("erfitt", "4");
+    }
+
 
     /**
      * Adds a translation for a key in all supported languages.
@@ -245,18 +338,163 @@ public class OptionsManager {
      * @param scanner The scanner to read input from
      */
     public static void promptLanguageSelection(java.util.Scanner scanner) {
-        System.out.println(get("select_language"));
-        System.out.println("1. " + get("english"));
-        System.out.println("2. " + get("icelandic"));
+        // Default to English for the initial prompt
+        setLanguage(Language.ENGLISH);
 
-        String choice = scanner.nextLine();
+        String choice;
+        boolean isValidChoice = false;
 
-        if (choice.equals("2")) {
-            setLanguage(Language.ICELANDIC);
-            System.out.println("Íslenska valin.");
+        while (!isValidChoice) {
+            System.out.println(get("select_language"));
+            System.out.println("1. " + get("english"));
+            System.out.println("2. Íslenska" );
+
+            choice = scanner.nextLine().toLowerCase();
+
+            // Accept both numbers and language names
+            if (choice.equals("2") || choice.contains("ísl") || choice.contains("isl") || choice.contains("ice")) {
+                setLanguage(Language.ICELANDIC);
+                System.out.println("Íslenska valin.");
+                isValidChoice = true;
+            } else if (choice.equals("1") || choice.contains("eng") || choice.contains("ens")) {
+                setLanguage(Language.ENGLISH);
+                System.out.println("English selected.");
+                isValidChoice = true;
+            } else {
+                // Show error message in English since we don't know the preferred language yet
+                System.out.println("Invalid choice. Please select 1 for English or 2 for Icelandic.");
+            }
+        }
+    }
+    /**
+     * Gets the move index from the input text for the specified theme.
+     *
+     * @param input The user's input text
+     * @param theme The current game theme
+     * @return The move index if found, null otherwise
+     */
+    public static Integer getMoveIndexFromInput(String input, GameTheme theme) {
+        input = input.toLowerCase().trim();
+
+        Map<String, Integer> moveMap = (theme == GameTheme.STANDARD) ? standardMoveMap : bathroomMoveMap;
+
+        // Check for exact match first
+        if (moveMap.containsKey(input)) {
+            return moveMap.get(input);
+        }
+
+        // Check if the input contains any of the move names
+        for (Map.Entry<String, Integer> entry : moveMap.entrySet()) {
+            if (input.contains(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Determines if the given input represents a "yes" response.
+     *
+     * @param input The user's input
+     * @return true if the input is an affirmative response, false otherwise
+     */
+    public static boolean isAffirmativeResponse(String input) {
+        input = input.toLowerCase().trim();
+
+        Boolean response = yesNoResponses.get(input);
+        return response != null && response;
+    }
+
+    /**
+     * Determines if the given input represents a "no" response.
+     *
+     * @param input The user's input
+     * @return true if the input is a negative response, false otherwise
+     */
+    public static boolean isNegativeResponse(String input) {
+        input = input.toLowerCase().trim();
+
+        Boolean response = yesNoResponses.get(input);
+        return response != null && !response;
+    }
+
+    /**
+     * Gets the difficulty level from text input.
+     *
+     * @param input The user's input
+     * @return The difficulty level as a string ("1", "2", "3", or "4"), or null if not recognized
+     */
+    public static String getDifficultyFromInput(String input) {
+        input = input.toLowerCase().trim();
+
+        // Check if input is already a number
+        if (input.matches("[1-4]")) {
+            return input;
+        }
+
+        // Check if input contains a difficulty name
+        for (Map.Entry<String, String> entry : difficultyMap.entrySet()) {
+            if (input.contains(entry.getKey())) {
+                return entry.getValue();
+            }
+        }
+
+        // Default to easy if not recognized
+        return "2";
+    }
+
+    /**
+     * Determines if the input indicates a bathroom theme selection.
+     *
+     * @param input The user's input
+     * @return true if the input indicates bathroom theme, false otherwise
+     */
+    public static boolean isBathroomThemeSelected(String input) {
+        input = input.toLowerCase().trim();
+
+        if (input.equals("2")) {
+            return true;
+        }
+
+        // Check for bathroom theme keywords
+        return input.contains("pee") || input.contains("piss") ||
+                input.contains("poop") || input.contains("kúk") ||
+                input.contains("toilet") || input.contains("klósett");
+    }
+    public static boolean isNormalThemeSelected(String input) {
+        input = input.toLowerCase().trim();
+
+        if (input.equals("1")) {
+            return true;
+        }
+
+        // Check for bathroom theme keywords
+        return input.contains("skæri") || input.contains("scissors") ||
+                input.contains("blað") || input.contains("paper") ||
+                input.contains("steinn") || input.contains("stone") ||
+                input.contains("venjuleg") || input.contains("normal");
+    }
+
+    /**
+     * Gets all available move names for a specific theme in the current language.
+     *
+     * @param theme The game theme
+     * @return Array of move names
+     */
+    public static String[] getMoveNamesForTheme(GameTheme theme) {
+        if (theme == GameTheme.STANDARD) {
+            return new String[] {
+                    get("rock"),
+                    get("paper"),
+                    get("scissors")
+            };
         } else {
-            setLanguage(Language.ENGLISH);
-            System.out.println("English selected.");
+            return new String[] {
+                    get("poop"),
+                    get("toilet_paper"),
+                    get("pee")
+            };
         }
     }
 }

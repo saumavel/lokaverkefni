@@ -25,6 +25,7 @@ public class GameManager {
     // Track the number of rounds played
     private int roundsPlayed = 0;
 
+
     /**
      * Creates a new GameManager.
      */
@@ -34,7 +35,6 @@ public class GameManager {
         // Prompt for language selection at the start
         OptionsManager.promptLanguageSelection(scanner);
     }
-
     /**
      * Starts the game flow.
      */
@@ -63,28 +63,30 @@ public class GameManager {
         scanner.close();
     }
 
-    /**
-     * Sets up the theme for the game.
-     */
     private void setupTheme() {
         System.out.println(OptionsManager.get("select_theme"));
         System.out.println("1. " + OptionsManager.get("theme_standard"));
         System.out.println("2. " + OptionsManager.get("theme_bathroom"));
 
-        String themeChoice = scanner.nextLine();
-
-        if (themeChoice.equals("2")) {
-            gameTheme = GameTheme.BATHROOM;
-            System.out.println(OptionsManager.get("theme_bathroom_selected"));
-        } else {
-            gameTheme = GameTheme.STANDARD;
-            System.out.println(OptionsManager.get("theme_standard_selected"));
+        String themeChoice = scanner.nextLine().toLowerCase();
+        boolean isValidInput = false;
+        while (!isValidInput) {
+            if (themeChoice.equals("1")) {
+                gameTheme = GameTheme.STANDARD;
+                System.out.println(OptionsManager.get("theme_standard_selected"));
+                isValidInput = true;
+            } else if (themeChoice.equals("2")) {
+                gameTheme = GameTheme.BATHROOM;
+                System.out.println(OptionsManager.get("theme_bathroom_selected"));
+                isValidInput = true;
+            } else {
+                System.out.println(OptionsManager.get("invalid_choice"));
+                System.out.println(OptionsManager.get("select_theme"));
+                themeChoice = scanner.nextLine().toLowerCase();
+            }
         }
     }
 
-    /**
-     * Sets up the game by getting player information and creating the game.
-     */
     private void setupGame() {
         // Reset game statistics
         scoreManager.resetScores();
@@ -97,20 +99,30 @@ public class GameManager {
         // Set up theme first
         setupTheme();
 
-        System.out.println(OptionsManager.get("select_players"));
+        // Initialize players
+        player1 = null;
+        player2 = null;
 
-        String input = scanner.nextLine();
+        while (player1 == null || player2 == null) {
+            System.out.println(OptionsManager.get("select_players"));
 
-        if (input.equals("1")) {
-            setupOnePlayerGame();
-            gameMode = GameMode.SINGLE_PLAYER;
-        } else if (input.equals("2")) {
-            setupTwoPlayerGame();
-            gameMode = GameMode.MULTIPLAYER;
-        } else {
-            System.out.println(OptionsManager.get("invalid_input"));
-            setupDefaultOnePlayerGame();
-            gameMode = GameMode.SINGLE_PLAYER;
+            boolean isValidInput = false;
+            while (!isValidInput) {
+                String input = scanner.nextLine();
+
+                if (input.equals("1")) {
+                    setupOnePlayerGame();
+                    gameMode = GameMode.SINGLE_PLAYER;
+                    isValidInput = true;
+                } else if (input.equals("2")) {
+                    setupTwoPlayerGame();
+                    gameMode = GameMode.MULTIPLAYER;
+                    isValidInput = true;
+                } else {
+                    System.out.println(OptionsManager.get("invalid_choice")); // Removed extra semicolon
+                    System.out.println(OptionsManager.get("select_players"));
+                }
+            }
         }
 
         // Register players with the score manager
@@ -133,49 +145,46 @@ public class GameManager {
         setupDifficulty();
     }
 
-    /**
-     * Sets up a default one-player game with default values.
-     */
-    private void setupDefaultOnePlayerGame() {
-        player1 = new Player("Player", gameTheme); // Pass the theme
-        player2 = new Player(true, gameTheme); // Pass the theme to computer player
-        player2.setComputerDifficulty(ComputerPlayerStrategy.DifficultyLevel.EASY);
-        System.out.println(OptionsManager.get("difficulty_easy_selected"));
-    }
-
-    /**
-     * Sets up the difficulty level for the computer player.
-     */
     private void setupDifficulty() {
-        System.out.println(OptionsManager.get("select_difficulty"));
-        // Use the first move (index 0) which is Rock in standard game or Poop in bathroom theme
-        System.out.println("1. " + OptionsManager.get("difficulty_man") + gameTheme.getMoveName(0) + ")");
-        System.out.println("2. " + OptionsManager.get("difficulty_easy"));
-        System.out.println("3. " + OptionsManager.get("difficulty_medium"));
-        System.out.println("4. " + OptionsManager.get("difficulty_hard"));
+        boolean isValidInput = false;
+        while (!isValidInput) {
+            System.out.println(OptionsManager.get("select_difficulty"));
+            System.out.println("1. " + OptionsManager.get("difficulty_man") + gameTheme.getMoveName(0) + ")");
+            System.out.println("2. " + OptionsManager.get("difficulty_easy"));
+            System.out.println("3. " + OptionsManager.get("difficulty_medium"));
+            System.out.println("4. " + OptionsManager.get("difficulty_hard"));
+            String difficultyChoice = scanner.nextLine().toLowerCase();
+            String difficultyLevel = OptionsManager.getDifficultyFromInput(difficultyChoice);
 
-        String difficultyChoice = scanner.nextLine();
-
-        switch (difficultyChoice) {
-            case "1":
-                currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.MAN;
-                player2.setComputerDifficulty(currentDifficulty);
-                System.out.println(OptionsManager.get("difficulty_man_selected") + gameTheme.getMoveName(0) + ".");
-                break;
-            case "3":
-                currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.MEDIUM;
-                player2.setComputerDifficulty(currentDifficulty);
-                System.out.println(OptionsManager.get("difficulty_medium_selected"));
-                break;
-            case "4":
-                currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.HARD;
-                player2.setComputerDifficulty(currentDifficulty);
-                System.out.println(OptionsManager.get("difficulty_hard_selected"));
-                break;
-            default:
-                currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.EASY;
-                player2.setComputerDifficulty(currentDifficulty);
-                System.out.println(OptionsManager.get("difficulty_easy_selected"));
+            switch (difficultyLevel) {
+                case "1":
+                    currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.MAN;
+                    player2.setComputerDifficulty(currentDifficulty);
+                    System.out.println(OptionsManager.get("difficulty_man_selected") + gameTheme.getMoveName(0) + ".");
+                    isValidInput = true;
+                    break;
+                case "2":
+                    currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.EASY;
+                    player2.setComputerDifficulty(currentDifficulty);
+                    System.out.println(OptionsManager.get("difficulty_easy_selected"));
+                    isValidInput = true;
+                    break;
+                case "3":
+                    currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.MEDIUM;
+                    player2.setComputerDifficulty(currentDifficulty);
+                    System.out.println(OptionsManager.get("difficulty_medium_selected"));
+                    isValidInput = true;
+                    break;
+                case "4":
+                    currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.HARD;
+                    player2.setComputerDifficulty(currentDifficulty);
+                    System.out.println(OptionsManager.get("difficulty_hard_selected"));
+                    isValidInput = true;
+                    break;
+                default:
+                    System.out.println(OptionsManager.get("invalid_choice"));
+                    break;
+            }
         }
     }
 
@@ -185,13 +194,27 @@ public class GameManager {
     private void setupTwoPlayerGame() {
         System.out.println(OptionsManager.get("two_player_selected"));
 
-        System.out.println(OptionsManager.get("enter_name_player1"));
-        String player1Name = scanner.nextLine();
-        player1 = new Player(player1Name, gameTheme); // Pass the theme
+        // Get player 1's name
+        String player1Name = "";
+        while (player1Name.trim().isEmpty()) {
+            System.out.println(OptionsManager.get("enter_name_player1"));
+            player1Name = scanner.nextLine().trim();
+            if (player1Name.isEmpty()) {
+                System.out.println(OptionsManager.get("invalid_input"));
+            }
+        }
+        player1 = new Player(player1Name, gameTheme);
 
-        System.out.println(OptionsManager.get("enter_name_player2"));
-        String player2Name = scanner.nextLine();
-        player2 = new Player(player2Name, gameTheme); // Pass the theme
+        // Get player 2's name
+        String player2Name = "";
+        while (player2Name.trim().isEmpty()) {
+            System.out.println(OptionsManager.get("enter_name_player2"));
+            player2Name = scanner.nextLine().trim();
+            if (player2Name.isEmpty()) {
+                System.out.println(OptionsManager.get("invalid_name"));
+            }
+        }
+        player2 = new Player(player2Name, gameTheme);
     }
 
     /**
@@ -253,7 +276,7 @@ public class GameManager {
             System.out.println((i + 1) + ". " + moveOptions[i]);
         }
 
-        String moveChoice = scanner.nextLine();
+        String moveChoice = scanner.nextLine().toLowerCase();
 
         if (moveChoice.equalsIgnoreCase("q")) {
             System.out.println(OptionsManager.get("quit_game"));
@@ -266,23 +289,33 @@ public class GameManager {
             return playComputerRound();
         }
 
-        try {
-            int choice = Integer.parseInt(moveChoice);
-            if (choice >= 1 && choice <= game.getNumberOfMoveOptions()) {
-                // Convert to zero-based index for the game
-                int moveIndex = choice - 1;
+        // Try to interpret the input as a move name
+        Integer moveIndex = getMoveIndexFromInput(moveChoice);
 
-                // Use the player select move method with the appropriate index
-                game.playerSelectsMove(player1, moveIndex);
-                System.out.println(OptionsManager.get("you_chose") + player1.getCurrentMove().getName());
-            } else {
-                System.out.println(OptionsManager.get("invalid_choice"));
-                return playComputerRound();
-            }
-        } catch (NumberFormatException e) {
-            System.out.println(OptionsManager.get("invalid_choice_default"));
-            game.playerOneSelectsFirstOption();
+        if (moveIndex != null) {
+            // Valid move name input
+            game.playerSelectsMove(player1, moveIndex);
             System.out.println(OptionsManager.get("you_chose") + player1.getCurrentMove().getName());
+        } else {
+            try {
+                // Try to interpret as a number
+                int choice = Integer.parseInt(moveChoice);
+                if (choice >= 1 && choice <= game.getNumberOfMoveOptions()) {
+                    // Convert to zero-based index for the game
+                    moveIndex = choice - 1;
+
+                    // Use the player select move method with the appropriate index
+                    game.playerSelectsMove(player1, moveIndex);
+                    System.out.println(OptionsManager.get("you_chose") + player1.getCurrentMove().getName());
+                } else {
+                    System.out.println(OptionsManager.get("invalid_choice"));
+                    return playComputerRound(); // Ask again instead of defaulting
+                }
+            } catch (NumberFormatException e) {
+                // Invalid input - not a number and not a recognized move name
+                System.out.println(OptionsManager.get("invalid_choice_number"));
+                return playComputerRound(); // Ask again instead of defaulting
+            }
         }
 
         // Computer makes its move
@@ -290,6 +323,12 @@ public class GameManager {
         System.out.println(OptionsManager.get("computer_chose") + player2.getCurrentMove().getName());
 
         return true;
+    }
+
+
+    private Integer getMoveIndexFromInput(String input) {
+        // Use the OptionsManager method instead of local implementation
+        return OptionsManager.getMoveIndexFromInput(input, gameTheme);
     }
 
     /**
@@ -321,7 +360,7 @@ public class GameManager {
             System.out.println((i + 1) + ". " + moveOptions[i]);
         }
 
-        String moveChoice = scanner.nextLine();
+        String moveChoice = scanner.nextLine().toLowerCase();
 
         if (moveChoice.equalsIgnoreCase("q")) {
             System.out.println(player.getName() + OptionsManager.get("player_quit_game"));
@@ -334,23 +373,34 @@ public class GameManager {
             return getPlayerMove(player);
         }
 
-        try {
-            int choice = Integer.parseInt(moveChoice);
-            if (choice >= 1 && choice <= game.getNumberOfMoveOptions()) {
-                // Convert to zero-based index
-                int moveIndex = choice - 1;
+        // Try to interpret the input as a move name
+        Integer moveIndex = getMoveIndexFromInput(moveChoice);
 
-                // Use the player select move method with the appropriate player and index
-                game.playerSelectsMove(player, moveIndex);
-                System.out.println(player.getName() + OptionsManager.get("player_chose") + player.getCurrentMove().getName());
-                return true;
-            } else {
-                System.out.println(OptionsManager.get("invalid_choice"));
+        if (moveIndex != null) {
+            // Valid move name input
+            game.playerSelectsMove(player, moveIndex);
+            System.out.println(player.getName() + OptionsManager.get("player_chose") + player.getCurrentMove().getName());
+            return true;
+        } else {
+            try {
+                // Try to interpret as a number
+                int choice = Integer.parseInt(moveChoice);
+                if (choice >= 1 && choice <= game.getNumberOfMoveOptions()) {
+                    // Convert to zero-based index
+                    moveIndex = choice - 1;
+
+                    // Use the player select move method with the appropriate player and index
+                    game.playerSelectsMove(player, moveIndex);
+                    System.out.println(player.getName() + OptionsManager.get("player_chose") + player.getCurrentMove().getName());
+                    return true;
+                } else {
+                    System.out.println(OptionsManager.get("invalid_choice"));
+                    return getPlayerMove(player);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(OptionsManager.get("invalid_choice_number"));
                 return getPlayerMove(player);
             }
-        } catch (NumberFormatException e) {
-            System.out.println(OptionsManager.get("invalid_choice_number"));
-            return getPlayerMove(player);
         }
     }
 
@@ -423,16 +473,14 @@ public class GameManager {
         }
     }
 
-    /**
-     * Offers to increase the difficulty after 5 consecutive wins.
-     */
     private void offerDifficultyIncrease() {
         System.out.println(OptionsManager.get("win_streak"));
         System.out.println(OptionsManager.get("increase_difficulty"));
 
         String response = scanner.nextLine().toLowerCase();
 
-        if (response.equals("y") || response.equals("yes")) {
+        // Use the new OptionsManager method for yes/no responses
+        if (OptionsManager.isAffirmativeResponse(response)) {
             switch (currentDifficulty) {
                 case MAN:
                     currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.EASY;
@@ -459,15 +507,12 @@ public class GameManager {
         }
     }
 
-    /**
-     * Asks the player if they want to play another round.
-     * This is only called every 5 rounds.
-     *
-     * @return true if the player wants to play again, false otherwise.
-     */
+
     private boolean askToPlayAgain() {
         System.out.println(OptionsManager.get("continue_playing") + roundsPlayed + OptionsManager.get("rounds"));
         String response = scanner.nextLine().toLowerCase();
-        return response.equals("y") || response.equals("yes");
+
+        // Use the new OptionsManager method for yes/no responses
+        return OptionsManager.isAffirmativeResponse(response);
     }
 }

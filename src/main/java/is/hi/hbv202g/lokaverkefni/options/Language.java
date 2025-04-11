@@ -2,7 +2,7 @@ package is.hi.hbv202g.lokaverkefni.options;
 
 public enum Language {
     ENGLISH("English"),
-    ICELANDIC("Íslenska");
+    ICELANDIC("Icelandic"),;
 
     private final String languageName;
 
@@ -14,12 +14,4 @@ public enum Language {
         return languageName;
     }
 
-    public static Language fromString(String text) {
-        for (Language lang : Language.values()) {
-            if (lang.languageName.equalsIgnoreCase(text)) {
-                return lang;
-            }
-        }
-        return null; // or throw an exception
-    }
 }
