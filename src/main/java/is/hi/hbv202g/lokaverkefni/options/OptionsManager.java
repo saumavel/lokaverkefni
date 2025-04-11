@@ -200,6 +200,10 @@ public class OptionsManager {
                 "Name cannot be empty. Please enter at least one character.",
                 "Nafn má ekki vera tómt. Vinsamlegast sláðu inn að minnsta kosti einn staf.");
 
+        addTranslation("rainbow",
+                "it is a Name cannot be empty. Please enter at least one character.",
+                "thetta erNafn má ekki vera tómt. Vinsamlegast sláðu inn að minnsta kosti einn staf.");
+
         // Initialize move name mappings
         initializeMoveNameMappings();
 
@@ -420,8 +424,8 @@ public class OptionsManager {
             }
         }
 
-        // Default to easy if not recognized
-        return "2";
+        // Default to wrong if not recognized
+        return "wrong";
     }
 
     /**

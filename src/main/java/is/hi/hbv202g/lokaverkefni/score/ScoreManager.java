@@ -20,18 +20,17 @@ public class ScoreManager implements ScoreObserver {
     private int totalRoundsPlayed = 0;
 
     /**
-     * Registers a player with the score manager.
+     * Registers a player with the score manager. The player is initially given a score of 0.
+     * The score manager is registered as an observer of the player's score.
      *
      * @param player The player to register.
      */
     public void registerPlayer(Player player) {
+        // Initialize the player's score to 0
         playerScores.put(player, 0);
+        // Register the score manager as an observer of the player's score
         player.registerObserver(this);
     }
-
-
-
-
 
     /**
      * Records a draw and awards 1 point to each player.
@@ -63,7 +62,6 @@ public class ScoreManager implements ScoreObserver {
     public void updateScore(Player player) {
         int currentScore = playerScores.getOrDefault(player, 0);
         playerScores.put(player, currentScore + 3); // 3 points for a win
-        // Don't increment totalRoundsPlayed here as it should be done once per round
     }
 
     /**
@@ -155,7 +153,7 @@ public class ScoreManager implements ScoreObserver {
             summary.append(player.getName()).append(": ").append(score).append("\n");
         }
         summary.append("Draws: ").append(draws).append("\n\n");
-        // Determine overall winner
+
         Player winner = getWinningPlayer();
         if (winner != null) {
             summary.append("Overall Winner: ").append(winner.getName()).append("! 🏆\n");

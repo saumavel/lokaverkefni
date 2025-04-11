@@ -40,10 +40,6 @@ public class ComputerPlayerStrategy {
         this.theme = theme;
     }
 
-
-
-
-
     /**
      * Sets the difficulty level.
      *

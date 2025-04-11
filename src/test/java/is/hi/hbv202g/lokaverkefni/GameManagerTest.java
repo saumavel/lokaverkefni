@@ -7,23 +7,14 @@ import java.util.Map;
 
 public class GameManagerTest {
     private ScoreManager scoreManager;
-    private Map<Player, Integer> playerScores;
 
     @Before
     public void setUp() {
         scoreManager = new ScoreManager();
-
-
     }
 
     @Test
-
-
     public void testSetupGame() {
         scoreManager.resetScores();
-
-
-
-
     }
 }

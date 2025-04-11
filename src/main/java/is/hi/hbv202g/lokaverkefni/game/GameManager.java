@@ -44,13 +44,10 @@ public class GameManager {
 
         while (continuePlaying) {
             continuePlaying = playRound();
-
             if (continuePlaying) {
                 System.out.println(scoreManager.getScoreSummary());
-
                 // Increment rounds played
                 roundsPlayed++;
-
                 // Only ask to continue every 5 rounds
                 if (roundsPlayed % 5 == 0) {
                     continuePlaying = askToPlayAgain();
@@ -64,13 +61,16 @@ public class GameManager {
     }
 
     private void setupTheme() {
-        System.out.println(OptionsManager.get("select_theme"));
-        System.out.println("1. " + OptionsManager.get("theme_standard"));
-        System.out.println("2. " + OptionsManager.get("theme_bathroom"));
-
-        String themeChoice = scanner.nextLine().toLowerCase();
+        String themeChoice;
         boolean isValidInput = false;
         while (!isValidInput) {
+            System.out.println(OptionsManager.get("select_theme"));
+            System.out.println("1. " + OptionsManager.get("theme_standard"));
+            System.out.println("2. " + OptionsManager.get("theme_bathroom"));
+            System.out.println("3. " + OptionsManager.get("rainbow"));
+
+
+            themeChoice = scanner.nextLine().toLowerCase();
             if (themeChoice.equals("1")) {
                 gameTheme = GameTheme.STANDARD;
                 System.out.println(OptionsManager.get("theme_standard_selected"));
@@ -81,8 +81,6 @@ public class GameManager {
                 isValidInput = true;
             } else {
                 System.out.println(OptionsManager.get("invalid_choice"));
-                System.out.println(OptionsManager.get("select_theme"));
-                themeChoice = scanner.nextLine().toLowerCase();
             }
         }
     }
