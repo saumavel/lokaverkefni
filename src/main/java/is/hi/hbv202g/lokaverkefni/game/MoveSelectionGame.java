@@ -1,4 +1,4 @@
-package is.hi.hbv202g.lokaverkefni;
+package is.hi.hbv202g.lokaverkefni.game;
 
 import is.hi.hbv202g.lokaverkefni.command.Command;
 import is.hi.hbv202g.lokaverkefni.command.GameInvoker;
@@ -6,6 +6,7 @@ import is.hi.hbv202g.lokaverkefni.command.PlayMoveCommand;
 import is.hi.hbv202g.lokaverkefni.model.Move;
 import is.hi.hbv202g.lokaverkefni.model.MoveFactory;
 import is.hi.hbv202g.lokaverkefni.model.Result;
+import is.hi.hbv202g.lokaverkefni.options.GameTheme;
 
 public class MoveSelectionGame {
     private final Player player1;
@@ -101,14 +102,7 @@ public class MoveSelectionGame {
         return theme.getMoveNames();
     }
 
-    /**
-     * Gets the number of available moves in the current game
-     *
-     * @return Number of move options
-     */
-    public int getNumberOfMoveOptions() {
-        return theme.getNumberOfMoves();
-    }
+
 
     /**
      * Determines the winner of the game.
@@ -152,5 +146,9 @@ public class MoveSelectionGame {
     public void undoLastMove() {
         // Undo the last command
         invoker.undoLastCommand();
+    }
+    public int getNumberOfMoveOptions() {
+        // Get the number of moves from the game theme
+        return theme.getNumberOfMoves();
     }
 }

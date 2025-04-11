@@ -1,6 +1,6 @@
 package is.hi.hbv202g.lokaverkefni.command;
 
-import is.hi.hbv202g.lokaverkefni.Player;
+import is.hi.hbv202g.lokaverkefni.game.Player;
 import is.hi.hbv202g.lokaverkefni.model.Move;
 
 public class PlayMoveCommand implements Command {
