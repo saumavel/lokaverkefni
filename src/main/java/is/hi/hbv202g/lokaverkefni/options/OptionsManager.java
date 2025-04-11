@@ -301,14 +301,6 @@ public class OptionsManager {
         currentLanguage = language;
     }
 
-    /**
-     * Gets the current language.
-     *
-     * @return The current language
-     */
-    public static Language getCurrentLanguage() {
-        return currentLanguage;
-    }
 
     /**
      * Gets a translated string for the given key.
@@ -406,18 +398,6 @@ public class OptionsManager {
         return response != null && response;
     }
 
-    /**
-     * Determines if the given input represents a "no" response.
-     *
-     * @param input The user's input
-     * @return true if the input is a negative response, false otherwise
-     */
-    public static boolean isNegativeResponse(String input) {
-        input = input.toLowerCase().trim();
-
-        Boolean response = yesNoResponses.get(input);
-        return response != null && !response;
-    }
 
     /**
      * Gets the difficulty level from text input.

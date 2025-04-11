@@ -4,14 +4,6 @@ public enum Language {
     ENGLISH("English"),
     ICELANDIC("Icelandic"),;
 
-    private final String languageName;
-
     Language(String languageName) {
-        this.languageName = languageName;
     }
-
-    public String getLanguageName() {
-        return languageName;
-    }
-
 }

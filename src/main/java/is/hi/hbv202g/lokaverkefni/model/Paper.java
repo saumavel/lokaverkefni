@@ -4,7 +4,6 @@ import is.hi.hbv202g.lokaverkefni.options.GameTheme;
 
 public class Paper implements Move {
     private final GameTheme theme;
-    private final int moveIndex = 1;  // Paper is index 1
 
     public Paper(GameTheme theme) {
         this.theme = theme;
@@ -19,6 +18,8 @@ public class Paper implements Move {
 
     @Override
     public String getName() {
+        // Paper is index 1
+        int moveIndex = 1;
         return theme.getMoveName(moveIndex);
     }
 }

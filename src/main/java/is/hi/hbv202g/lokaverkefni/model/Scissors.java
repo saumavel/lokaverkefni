@@ -4,7 +4,6 @@ import is.hi.hbv202g.lokaverkefni.options.GameTheme;
 
 public class Scissors implements Move {
     private final GameTheme theme;
-    private final int moveIndex = 2;  // Scissors is index 2
 
     public Scissors(GameTheme theme) {
         this.theme = theme;
@@ -19,6 +18,8 @@ public class Scissors implements Move {
 
     @Override
     public String getName() {
+        // Scissors is index 2
+        int moveIndex = 2;
         return theme.getMoveName(moveIndex);
     }
 }

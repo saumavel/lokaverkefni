@@ -29,54 +29,19 @@ public class ScoreManager implements ScoreObserver {
         player.registerObserver(this);
     }
 
-    /**
-     * Unregisters a player from the score manager.
-     *
-     * @param player The player to unregister.
-     */
-    public void unregisterPlayer(Player player) {
-        playerScores.remove(player);
-        player.removeObserver(this);
-    }
 
-    /**
-     * Gets the score for a specific player.
-     *
-     * @param player The player whose score to retrieve.
-     * @return The player's score, or 0 if the player is not registered.
-     */
-    public int getScore(Player player) {
-        return playerScores.getOrDefault(player, 0);
-    }
 
-    /**
-     * Gets the number of draws.
-     *
-     * @return The number of draws.
-     */
-    public int getDraws() {
-        return draws;
-    }
 
-    /**
-     * Gets the total number of rounds played.
-     *
-     * @return The total number of rounds played.
-     */
-    public int getTotalRoundsPlayed() {
-        return totalRoundsPlayed;
-    }
 
     /**
      * Records a draw and awards 1 point to each player.
      */
-    public void recordDraw() {
+    public void recordDraw(){
         draws++;
 
         // Award 1 point to each player for a draw
         for (Player player : playerScores.keySet()) {
-            int currentScore = playerScores.get(player);
-            playerScores.put(player, currentScore + 1);
+            playerScores.compute(player, (k, currentScore) -> currentScore + 1);
         }
     }
 
@@ -153,9 +118,7 @@ public class ScoreManager implements ScoreObserver {
      * Resets all scores to zero.
      */
     public void resetScores() {
-        for (Player player : playerScores.keySet()) {
-            playerScores.put(player, 0);
-        }
+        playerScores.replaceAll((p, v) -> 0);
         draws = 0;
         totalRoundsPlayed = 0;
     }

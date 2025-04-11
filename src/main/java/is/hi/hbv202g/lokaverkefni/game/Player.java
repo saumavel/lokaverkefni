@@ -15,22 +15,12 @@ public class Player implements ScoreSubject {
     private final boolean isComputer;
     private int score = 0;
     private ComputerPlayerStrategy computerStrategy;
-    private GameTheme theme; // Added theme field
+    private final GameTheme theme; // Added theme field
 
     // List of observers for the score
     private final List<ScoreObserver> observers = new ArrayList<>();
 
-    /**
-     * Creates a new human player with the given name.
-     *
-     * @param name The name of the player.
-     */
-    public Player(String name) {
-        this.name = name;
-        this.isComputer = false;
-    }
-
-    /**
+     /**
      * Creates a new player with a theme.
      *
      * @param name The name of the player.
@@ -87,46 +77,9 @@ public class Player implements ScoreSubject {
         this.currentMove = move;
     }
 
-    /**
-     * Gets the theme used by this player.
-     *
-     * @return The game theme.
-     */
-    public GameTheme getTheme() {
-        return theme;
-    }
 
-    /**
-     * Sets the theme for this player.
-     *
-     * @param theme The new game theme.
-     */
-    public void setTheme(GameTheme theme) {
-        this.theme = theme;
-        if (isComputer && computerStrategy != null) {
-            // Update the strategy with the new theme
-            this.computerStrategy = new ComputerPlayerStrategy(
-                    computerStrategy.getDifficultyLevel(), theme);
-        }
-    }
 
-    /**
-     * Checks if the player is a computer.
-     *
-     * @return True if the player is a computer, false otherwise.
-     */
-    public boolean isComputer() {
-        return isComputer;
-    }
 
-    /**
-     * Gets the player's current score.
-     *
-     * @return The player's score.
-     */
-    public int getScore() {
-        return score;
-    }
 
     /**
      * Increments the player's score by 1.

@@ -4,7 +4,6 @@ import is.hi.hbv202g.lokaverkefni.options.GameTheme;
 
 public class Rock implements Move {
     private final GameTheme theme;
-    private final int moveIndex = 0;  // Rock is index 0
 
     public Rock(GameTheme theme) {
         this.theme = theme;
@@ -19,6 +18,8 @@ public class Rock implements Move {
 
     @Override
     public String getName() {
+        // Rock is index 0
+        int moveIndex = 0;
         return theme.getMoveName(moveIndex);
     }
 }

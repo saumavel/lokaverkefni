@@ -138,8 +138,18 @@ public class GameManager {
      */
     private void setupOnePlayerGame() {
         System.out.println(OptionsManager.get("one_player_selected"));
-        String playerName = scanner.nextLine();
-        player1 = new Player(playerName, gameTheme); // Pass the theme
+        boolean isValidInput = false;
+        String playerName;
+        while(!isValidInput){
+            playerName = scanner.nextLine();
+            if (playerName.trim().isEmpty()) {
+                System.out.println(OptionsManager.get("invalid_input"));
+            } else {
+                isValidInput = true;
+            }
+            player1 = new Player(playerName, gameTheme); // Pass the theme
+        }
+
         player2 = new Player(true, gameTheme); // Pass the theme to computer player
 
         setupDifficulty();

@@ -40,25 +40,9 @@ public class ComputerPlayerStrategy {
         this.theme = theme;
     }
 
-    /**
-     * Creates a new computer player strategy with the specified difficulty.
-     *
-     * @param difficultyLevel The difficulty level for the computer player.
-     * @param theme The game theme to use for move creation
-     */
-    public ComputerPlayerStrategy(DifficultyLevel difficultyLevel, GameTheme theme) {
-        this.difficultyLevel = difficultyLevel;
-        this.theme = theme;
-    }
 
-    /**
-     * Gets the difficulty level.
-     *
-     * @return The current difficulty level.
-     */
-    public DifficultyLevel getDifficultyLevel() {
-        return difficultyLevel;
-    }
+
+
 
     /**
      * Sets the difficulty level.

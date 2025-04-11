@@ -23,13 +23,6 @@ public class MoveSelectionGame {
         this.moveFactory = new MoveFactory(theme);
     }
 
-    /**
-     * Generic method for a player to select a move by index.
-     *
-     * @param player The player making the move
-     * @param moveIndex The index of the move (0 for rock/first option, 1 for paper/second option, etc.)
-     */
-    // In MoveSelectionGame class, update the playerSelectsMove method:
 
     /**
      * Generic method for a player to select a move by index.
@@ -41,56 +34,6 @@ public class MoveSelectionGame {
         Move move = moveFactory.createMove(moveIndex);
         Command command = new PlayMoveCommand(player, move);
         invoker.executeCommand(command);
-    }
-
-
-    /**
-     * Player one selects the first option (rock in traditional game).
-     */
-    public void playerOneSelectsFirstOption() {
-        playerSelectsMove(player1, 0);
-    }
-
-    /**
-     * Player one selects the second option (paper in traditional game).
-     */
-    public void playerOneSelectsSecondOption() {
-        playerSelectsMove(player1, 1);
-    }
-
-    /**
-     * Player one selects the third option (scissors in traditional game).
-     */
-    public void playerOneSelectsThirdOption() {
-        playerSelectsMove(player1, 2);
-    }
-
-    /**
-     * Player two selects the first option (rock in traditional game).
-     */
-    public void playerTwoSelectsFirstOption() {
-        playerSelectsMove(player2, 0);
-    }
-
-    /**
-     * Player two selects the second option (paper in traditional game).
-     */
-    public void playerTwoSelectsSecondOption() {
-        playerSelectsMove(player2, 1);
-    }
-
-    /**
-     * Player two selects the third option (scissors in traditional game).
-     */
-    public void playerTwoSelectsThirdOption() {
-        playerSelectsMove(player2, 2);
-    }
-
-    /**
-     * Gets the current theme
-     */
-    public GameTheme getTheme() {
-        return theme;
     }
 
     /**
@@ -120,22 +63,15 @@ public class MoveSelectionGame {
         // Determine the winner based on the result
         return switch (result) {
             case WIN -> {
-                // Player 1 wins
                 yield player1.getName() + " wins! " + player1.getCurrentMove().getName() +
                         " beats " + player2.getCurrentMove().getName();
             }
             case LOSE -> {
-                // Player 2 wins
                 yield player2.getName() + " wins! " + player2.getCurrentMove().getName() +
                         " beats " + player1.getCurrentMove().getName();
             }
             case DRAW -> {
-                // It's a draw
                 yield "It's a draw! Both players chose " + player1.getCurrentMove().getName();
-            }
-            default -> {
-                // Unknown result
-                yield "Unknown result";
             }
         };
     }

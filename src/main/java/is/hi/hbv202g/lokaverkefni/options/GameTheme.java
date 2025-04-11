@@ -27,7 +27,6 @@ public enum GameTheme {
                 case 2 -> OptionsManager.get("pee");
                 default -> "Unknown";
             };
-            default -> "Unknown";
         };
     }
 
@@ -48,7 +47,6 @@ public enum GameTheme {
                     OptionsManager.get("toilet_paper"),
                     OptionsManager.get("pee")
             };
-            default -> new String[]{"Unknown"};
         };
     }
     /**
