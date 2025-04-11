@@ -1,6 +1,6 @@
 package is.hi.hbv202g.lokaverkefni.score;
 
-import is.hi.hbv202g.lokaverkefni.Player;
+import is.hi.hbv202g.lokaverkefni.game.Player;
 import is.hi.hbv202g.lokaverkefni.observer.ScoreObserver;
 
 import java.util.HashMap;

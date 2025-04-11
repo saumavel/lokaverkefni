@@ -17,16 +17,16 @@ public enum GameTheme {
         switch (this) {
             case STANDARD:
                 return switch (index) {
-                    case 0 -> LanguageManager.get("rock");
-                    case 1 -> LanguageManager.get("paper");
-                    case 2 -> LanguageManager.get("scissors");
+                    case 0 -> OptionsManager.get("rock");
+                    case 1 -> OptionsManager.get("paper");
+                    case 2 -> OptionsManager.get("scissors");
                     default -> "Unknown";
                 };
             case BATHROOM:
                 switch (index) {
-                    case 0: return LanguageManager.get("poop");
-                    case 1: return LanguageManager.get("toilet_paper");
-                    case 2: return LanguageManager.get("pee");
+                    case 0: return OptionsManager.get("poop");
+                    case 1: return OptionsManager.get("toilet_paper");
+                    case 2: return OptionsManager.get("pee");
                     default: return "Unknown";
                 }
             default:
@@ -42,14 +42,14 @@ public enum GameTheme {
     public String[] getMoveNames() {
         return switch (this) {
             case STANDARD -> new String[]{
-                    LanguageManager.get("rock"),
-                    LanguageManager.get("paper"),
-                    LanguageManager.get("scissors")
+                    OptionsManager.get("rock"),
+                    OptionsManager.get("paper"),
+                    OptionsManager.get("scissors")
             };
             case BATHROOM -> new String[]{
-                    LanguageManager.get("poop"),
-                    LanguageManager.get("toilet_paper"),
-                    LanguageManager.get("pee")
+                    OptionsManager.get("poop"),
+                    OptionsManager.get("toilet_paper"),
+                    OptionsManager.get("pee")
             };
             default -> new String[]{"Unknown"};
         };

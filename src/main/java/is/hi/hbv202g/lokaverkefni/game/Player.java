@@ -1,4 +1,4 @@
-package is.hi.hbv202g.lokaverkefni;
+package is.hi.hbv202g.lokaverkefni.game;
 
 import is.hi.hbv202g.lokaverkefni.model.Move;
 import is.hi.hbv202g.lokaverkefni.observer.ScoreObserver;

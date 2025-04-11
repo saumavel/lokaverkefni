@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Manages language settings and translations for the game.
  */
-public class LanguageManager {
+public class OptionsManager {
     private static Language currentLanguage = Language.ENGLISH; // Default language
     private static final Map<String, Map<Language, String>> translations = new HashMap<>();
 
@@ -17,26 +17,26 @@ public class LanguageManager {
                 "Welcome to the Game!",
                 "Velkomin(n) í leikinn!");
         addTranslation("select_theme",
-                "Select game theme:",
-                "Veldu þema leiksins:");
+                "Rock Paper Scissors or Pee, Poop or Toiletpaper:",
+                "Skæri, Blað, Steinn eða Piss, Kúkur, Klósettpappír:");
         addTranslation("theme_standard",
-                "Standard (Rock, Paper, Scissors)",
-                "Hefðbundið (Steinn, Blað, Skæri)");
+                "Rock, Paper, Scissors",
+                "Skæri, Blað, Steinn");
         addTranslation("theme_bathroom",
-                "Bathroom (Poop, Toilet Paper, Pee)",
-                "Baðherbergi (Kúkur, Klósettpappír, Piss)");
+                "Pee, Poop, Toilet Paper",
+                "Piss, Kúkur, Klósettpappír");
         addTranslation("theme_standard_selected",
-                "Standard theme selected.",
-                "Hefðbundið þema valið.");
+                "You chose Rock, Paper, Scissors",
+                "Þú valdir Skæri, Blað, Steinn");
         addTranslation("theme_bathroom_selected",
-                "Bathroom theme selected!",
-                "Baðherbergisþema valið!");
+                "You chose Pee, Poop, Toilet Paper",
+                "Þú valdir Piss, Kúkur, Klósettpappír");
         addTranslation("select_players",
                 "Write 1 for a one player game or 2 for a two-player game",
-                "Skrifaðu 1 fyrir eins leikmanns leik eða 2 fyrir tveggja leikmanna leik");
+                "Skrifaðu 1 fyrir 1 leikmann eða 2 ef þú ert að spila við vin");
         addTranslation("invalid_input",
-                "Invalid input. Defaulting to one player game.",
-                "Ógilt inntak. Sjálfgefið á eins leikmanns leik.");
+                "Invalid input. Please try again",
+                "Ógilt inntak. Vinsamlegast reyndu aftur.");
 
         // One player game setup
         addTranslation("one_player_selected",
@@ -58,22 +58,22 @@ public class LanguageManager {
                 "Hard",
                 "Erfitt");
         addTranslation("difficulty_man_selected",
-                "Man difficulty selected. Your opponent will always play ",
-                "Maður erfiðleikastig valið. Andstæðingur þinn mun alltaf spila ");
+                "You have decided to play against a man. A man believes that a win is always possible with ",
+                "Þú hefur valið að spila við mann. Menn halda að sigur fáist alltaf með ");
         addTranslation("difficulty_easy_selected",
-                "Easy difficulty selected.",
-                "Auðvelt erfiðleikastig valið.");
+                "You are now playing difficulty level : Easy",
+                "Erfiðleikastig : Maður");
         addTranslation("difficulty_medium_selected",
-                "Medium difficulty selected.",
-                "Miðlungs erfiðleikastig valið.");
+                "You are now playing difficulty level : Medium",
+                "Erfiðleikastig : Miðlungs");
         addTranslation("difficulty_hard_selected",
-                "Hard difficulty selected.",
-                "Erfitt erfiðleikastig valið.");
+                "You are now playing difficulty level : Hard",
+                "Erfiðleikastig : Erfitt");
 
         // Two player game setup
         addTranslation("two_player_selected",
                 "You have selected two player game.",
-                "Þú hefur valið tveggja leikmanna leik.");
+                "Þú hefur valið að spila við vin.");
         addTranslation("enter_name_player1",
                 "Enter name for Player 1:",
                 "Sláðu inn nafn fyrir Leikmann 1:");
@@ -86,11 +86,11 @@ public class LanguageManager {
                 "ROUND",
                 "UMFERÐ");
         addTranslation("secret_hint",
-                "🤫 Hate losing? Press 'u' and see what happens. It will be our little secret. 🤫",
-                "🤫 Hatarðu að tapa? Ýttu á 'u' og sjáðu hvað gerist. Þetta verður okkar litla leyndarmál. 🤫");
+                "🤫 psst... Hate losing? Press 'u' and see what happens.",
+                "🤫 psst... Hatar þú að tapa? Ýttu á 'u' og sjáðu hvað gerist.");
         addTranslation("choose_move",
                 ", choose your move:",
-                ", veldu hreyfingu þína:");
+                ", veldu hendi:");
         addTranslation("you_chose",
                 "You chose ",
                 "Þú valdir ");
@@ -108,7 +108,7 @@ public class LanguageManager {
                 " valdi að hætta í leiknum.");
         addTranslation("invalid_choice",
                 "Invalid choice. Please select a valid option.",
-                "Ógilt val. Vinsamlegast veldu gilt valmöguleika.");
+                "Ógilt val. Vinsamlegast veldu gildan valmöguleika.");
         addTranslation("invalid_choice_default",
                 "Invalid choice. Defaulting to first option.",
                 "Ógilt val. Sjálfgefið á fyrsta valmöguleika.");
@@ -121,11 +121,11 @@ public class LanguageManager {
                 "Last move undone.",
                 "Síðasta færsla afturkölluð.");
         addTranslation("undo_note",
-                "Note: Scores for the current round may need to be recalculated.",
-                "Athugið: Stig fyrir núverandi umferð gætu þurft að vera endurreiknuð.");
+                "Meow",
+                "Mjáw");
         addTranslation("undo_secret",
-                "😉 A clean game is not always the best... It will be our little secret. 😉",
-                "😉 Hreinn leikur er ekki alltaf bestur... Þetta verður okkar litla leyndarmál. 😉");
+                "😉 A clean game is not always the best... This will be our little secret. 😉",
+                "😉 Það er ekki alltaf best að segja sannleikann... Þetta verður littla leyndarmálið okkar. 😉");
         addTranslation("player_wins",
                 " WINS THIS ROUND! 🎉",
                 " VINNUR ÞESSA UMFERÐ! 🎉");
@@ -145,13 +145,13 @@ public class LanguageManager {
                 "Viltu auka erfiðleikastigið? (y/n)");
         addTranslation("difficulty_increased_easy",
                 "Difficulty increased to Easy.",
-                "Erfiðleikastig aukið í Auðvelt.");
+                "Erfiðleikastig er núna Auðvelt.");
         addTranslation("difficulty_increased_medium",
                 "Difficulty increased to Medium.",
-                "Erfiðleikastig aukið í Miðlungs.");
+                "Erfiðleikastig er núna Miðlungs.");
         addTranslation("difficulty_increased_hard",
                 "Difficulty increased to Hard.",
-                "Erfiðleikastig aukið í Erfitt.");
+                "Erfiðleikastig er núna Erfitt.");
         addTranslation("max_difficulty",
                 "You're already at the highest difficulty!",
                 "Þú ert nú þegar á hæsta erfiðleikastigi!");
