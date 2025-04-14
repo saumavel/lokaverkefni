@@ -1,8 +1,5 @@
 package is.hi.hbv202g.lokaverkefni.options.enums;
-
-import is.hi.hbv202g.lokaverkefni.options.OptionsManager;
 import is.hi.hbv202g.lokaverkefni.options.translation.TranslationManager;
-import is.hi.hbv202g.lokaverkefni.options.translation.TranslationsInitializer;
 
 /**
  * Enum representing different game themes.

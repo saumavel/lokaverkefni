@@ -20,12 +20,14 @@ public class TranslationManager {
 
     /**
      * Get the translation.
-     * @param key
+     * @param key lykill
      * @return string in the output.
      */
     public static String get(String key) {
         Map<Language, String> map = translations.get(key);
-        if (map == null) return "Missing translation: " + key;
+        if (map == null) {
+            return "Missing translation: " + key;
+        }
         return map.getOrDefault(currentLanguage, map.get(Language.ENGLISH));
     }
 

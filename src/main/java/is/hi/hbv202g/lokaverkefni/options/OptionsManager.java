@@ -102,14 +102,16 @@ public class OptionsManager {
             return new String[] {
                     TranslationManager.get("rock"),
                     TranslationManager.get("paper"),
-                    TranslationManager.get("scissors")
+                    TranslationManager.get("scissors"),
             };
-        } else {
+        } else if (theme == GameTheme.BATHROOM) {
             return new String[] {
                     TranslationManager.get("poop"),
                     TranslationManager.get("toilet_paper"),
-                    TranslationManager.get("pee")
+                    TranslationManager.get("pee"),
             };
+        } else {
+            throw new UnsupportedOperationException("Unsupported theme: " + theme);
         }
     }
 

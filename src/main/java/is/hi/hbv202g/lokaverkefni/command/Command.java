@@ -10,4 +10,5 @@ public interface Command {
      * Undoes the effects of the command.
      */
     void undo();
+
 }

@@ -1,11 +1,10 @@
 package is.hi.hbv202g.lokaverkefni.game;
 
+import is.hi.hbv202g.lokaverkefni.options.OptionsManager;
 import is.hi.hbv202g.lokaverkefni.options.enums.GameMode;
 import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
-import is.hi.hbv202g.lokaverkefni.options.parsing.InputParser;
 import is.hi.hbv202g.lokaverkefni.options.parsing.MoveNameMapper;
 import is.hi.hbv202g.lokaverkefni.options.translation.TranslationManager;
-import is.hi.hbv202g.lokaverkefni.options.translation.TranslationsInitializer;
 import is.hi.hbv202g.lokaverkefni.score.ScoreManager;
 import is.hi.hbv202g.lokaverkefni.strategy.ComputerPlayerStrategy;
 
@@ -30,7 +29,6 @@ public class GameManager {
      */
     public GameManager() {
         scanner = new Scanner(System.in);
-        TranslationsInitializer.load();
         TranslationManager.promptLanguageSelection(scanner);
     }
     /**
@@ -345,7 +343,7 @@ public class GameManager {
 
         String response = scanner.nextLine().toLowerCase();
 
-        if (InputParser.isYes(response)) {
+        if (OptionsManager.isAffirmativeResponse(response)) {
             switch (currentDifficulty) {
                 case MAN:
                     currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.EASY;
@@ -382,6 +380,6 @@ public class GameManager {
         System.out.println(TranslationManager.get("continue_playing") + roundsPlayed + TranslationManager.get("rounds"));
         String response = scanner.nextLine().toLowerCase();
 
-        return InputParser.isYes(response);
+        return OptionsManager.isAffirmativeResponse(response);
     }
 }
