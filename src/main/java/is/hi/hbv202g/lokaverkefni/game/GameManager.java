@@ -60,6 +60,9 @@ public class GameManager {
         scanner.close();
     }
 
+    /**
+     * Sets up the game theme.
+     */
     private void setupTheme() {
         String themeChoice;
         boolean isValidInput = false;
@@ -85,6 +88,9 @@ public class GameManager {
         }
     }
 
+    /**
+     * Sets up a new game.
+     */
     private void setupGame() {
         // Reset game statistics
         scoreManager.resetScores();
@@ -481,13 +487,15 @@ public class GameManager {
         }
     }
 
+    /**
+     * Offer the player the option to increase the difficulty level.
+     */
     private void offerDifficultyIncrease() {
         System.out.println(OptionsManager.get("win_streak"));
         System.out.println(OptionsManager.get("increase_difficulty"));
 
         String response = scanner.nextLine().toLowerCase();
 
-        // Use the new OptionsManager method for yes/no responses
         if (OptionsManager.isAffirmativeResponse(response)) {
             switch (currentDifficulty) {
                 case MAN:
@@ -516,6 +524,11 @@ public class GameManager {
     }
 
 
+    /**
+     * Prompts the player to play another round.
+     *
+     * @return True if the player wants to play again, false otherwise.
+     */
     private boolean askToPlayAgain() {
         System.out.println(OptionsManager.get("continue_playing") + roundsPlayed + OptionsManager.get("rounds"));
         String response = scanner.nextLine().toLowerCase();
