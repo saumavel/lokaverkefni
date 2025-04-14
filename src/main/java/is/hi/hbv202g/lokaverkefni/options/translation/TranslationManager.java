@@ -14,10 +14,6 @@ public class TranslationManager {
         currentLanguage = lang;
     }
 
-    public static Language getLanguage() {
-        return currentLanguage;
-    }
-
     /**
      * Get the translation.
      * @param key lykill

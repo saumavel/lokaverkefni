@@ -40,7 +40,7 @@ public class ScoreManager implements ScoreObserver {
 
         // Award 1 point to each player for a draw
         for (Player player : playerScores.keySet()) {
-            playerScores.compute(player, (k, currentScore) -> currentScore + 1);
+            playerScores.compute(player, (k, currentScore) -> currentScore == null ? 1 : currentScore + 1);
         }
     }
 
@@ -67,7 +67,7 @@ public class ScoreManager implements ScoreObserver {
     /**
      * Determines the player with the highest score.
      *
-     * @return The player with the highest score, or null if there are no player's or it's a tie.
+     * @return The player with the highest score, or null if there are no players, or it is a tie.
      */
     public Player getWinningPlayer() {
         if (playerScores.isEmpty()) {

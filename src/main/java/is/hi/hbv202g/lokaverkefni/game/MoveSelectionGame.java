@@ -62,17 +62,11 @@ public class MoveSelectionGame {
 
         // Determine the winner based on the result
         return switch (result) {
-            case WIN -> {
-                yield player1.getName() + " wins! " + player1.getCurrentMove().getName() +
-                        " beats " + player2.getCurrentMove().getName();
-            }
-            case LOSE -> {
-                yield player2.getName() + " wins! " + player2.getCurrentMove().getName() +
-                        " beats " + player1.getCurrentMove().getName();
-            }
-            case DRAW -> {
-                yield "It's a draw! Both players chose " + player1.getCurrentMove().getName();
-            }
+            case WIN -> player1.getName() + " wins! " + player1.getCurrentMove().getName() +
+                    " beats " + player2.getCurrentMove().getName();
+            case LOSE -> player2.getName() + " wins! " + player2.getCurrentMove().getName() +
+                    " beats " + player1.getCurrentMove().getName();
+            case DRAW -> "It's a draw! Both players chose " + player1.getCurrentMove().getName();
         };
     }
 
@@ -83,8 +77,11 @@ public class MoveSelectionGame {
         // Undo the last command
         invoker.undoLastCommand();
     }
+
+    /**
+     * Get the number of moves from the game them
+     */
     public int getNumberOfMoveOptions() {
-        // Get the number of moves from the game theme
         return theme.getNumberOfMoves();
     }
 }
