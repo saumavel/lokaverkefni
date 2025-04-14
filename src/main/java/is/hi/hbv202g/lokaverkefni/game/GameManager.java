@@ -39,60 +39,30 @@ public class GameManager {
      * Starts the game flow.
      */
     public void start() {
-        setupGame();
-        boolean continuePlaying = true;
+            setupGame();
+            boolean continuePlaying = true;
 
-        while (continuePlaying) {
-            continuePlaying = playRound();
-            if (continuePlaying) {
-                System.out.println(scoreManager.getScoreSummary());
-                // Increment rounds played
-                roundsPlayed++;
-                // Only ask to continue every 5 rounds
-                if (roundsPlayed % 5 == 0) {
-                    continuePlaying = askToPlayAgain();
+            while (continuePlaying) {
+                continuePlaying = playRound();
+                if (continuePlaying) {
+                    System.out.println(scoreManager.getScoreSummary());
+                    roundsPlayed++;
+                    if (roundsPlayed % 5 == 0) {
+                        continuePlaying = askToPlayAgain();
+                    }
                 }
             }
-        }
 
-        System.out.println(scoreManager.getFinalResultsSummary());
-        System.out.println(OptionsManager.get("thanks_for_playing"));
-        scanner.close();
+            System.out.println(scoreManager.getFinalResultsSummary());
+            System.out.println(OptionsManager.get("thanks_for_playing"));
     }
 
-    /**
-     * Sets up the game theme.
-     */
-    private void setupTheme() {
-        String themeChoice;
-        boolean isValidInput = false;
-        while (!isValidInput) {
-            System.out.println(OptionsManager.get("select_theme"));
-            System.out.println("1. " + OptionsManager.get("theme_standard"));
-            System.out.println("2. " + OptionsManager.get("theme_bathroom"));
-            System.out.println("3. " + OptionsManager.get("rainbow"));
 
-
-            themeChoice = scanner.nextLine().toLowerCase();
-            if (themeChoice.equals("1")) {
-                gameTheme = GameTheme.STANDARD;
-                System.out.println(OptionsManager.get("theme_standard_selected"));
-                isValidInput = true;
-            } else if (themeChoice.equals("2")) {
-                gameTheme = GameTheme.BATHROOM;
-                System.out.println(OptionsManager.get("theme_bathroom_selected"));
-                isValidInput = true;
-            } else {
-                System.out.println(OptionsManager.get("invalid_choice"));
-            }
-        }
-    }
 
     /**
      * Sets up a new game.
      */
     private void setupGame() {
-        // Reset game statistics
         scoreManager.resetScores();
         consecutiveWins = 0;
         consecutiveLosses = 0;
@@ -100,135 +70,16 @@ public class GameManager {
 
         System.out.println(OptionsManager.get("welcome"));
 
-        // Set up theme first
-        setupTheme();
+        GameConfiguration config = GameSetup.initializeGame(scanner);
+        this.player1 = config.player1();
+        this.player2 = config.player2();
+        this.gameTheme = config.theme();
+        this.gameMode = config.mode();
+        this.currentDifficulty = config.difficulty();
 
-        // Initialize players
-        player1 = null;
-        player2 = null;
-
-        while (player1 == null || player2 == null) {
-            System.out.println(OptionsManager.get("select_players"));
-
-            boolean isValidInput = false;
-            while (!isValidInput) {
-                String input = scanner.nextLine();
-
-                if (input.equals("1")) {
-                    setupOnePlayerGame();
-                    gameMode = GameMode.SINGLE_PLAYER;
-                    isValidInput = true;
-                } else if (input.equals("2")) {
-                    setupTwoPlayerGame();
-                    gameMode = GameMode.MULTIPLAYER;
-                    isValidInput = true;
-                } else {
-                    System.out.println(OptionsManager.get("invalid_choice")); // Removed extra semicolon
-                    System.out.println(OptionsManager.get("select_players"));
-                }
-            }
-        }
-
-        // Register players with the score manager
         scoreManager.registerPlayer(player1);
         scoreManager.registerPlayer(player2);
-
-        // Create the game with the selected theme
         game = new MoveSelectionGame(player1, player2, gameTheme);
-    }
-
-    /**
-     * Sets up a one-player game against the computer.
-     */
-    private void setupOnePlayerGame() {
-        System.out.println(OptionsManager.get("one_player_selected"));
-        boolean isValidInput = false;
-        String playerName;
-        while(!isValidInput){
-            playerName = scanner.nextLine();
-            if (playerName.trim().isEmpty()) {
-                System.out.println(OptionsManager.get("invalid_input"));
-            } else {
-                isValidInput = true;
-            }
-            player1 = new Player(playerName, gameTheme); // Pass the theme
-        }
-
-        player2 = new Player(true, gameTheme); // Pass the theme to computer player
-
-        setupDifficulty();
-    }
-
-    private void setupDifficulty() {
-        boolean isValidInput = false;
-        while (!isValidInput) {
-            System.out.println(OptionsManager.get("select_difficulty"));
-            System.out.println("1. " + OptionsManager.get("difficulty_man") + gameTheme.getMoveName(0) + ")");
-            System.out.println("2. " + OptionsManager.get("difficulty_easy"));
-            System.out.println("3. " + OptionsManager.get("difficulty_medium"));
-            System.out.println("4. " + OptionsManager.get("difficulty_hard"));
-            String difficultyChoice = scanner.nextLine().toLowerCase();
-            String difficultyLevel = OptionsManager.getDifficultyFromInput(difficultyChoice);
-
-            switch (difficultyLevel) {
-                case "1":
-                    currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.MAN;
-                    player2.setComputerDifficulty(currentDifficulty);
-                    System.out.println(OptionsManager.get("difficulty_man_selected") + gameTheme.getMoveName(0) + ".");
-                    isValidInput = true;
-                    break;
-                case "2":
-                    currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.EASY;
-                    player2.setComputerDifficulty(currentDifficulty);
-                    System.out.println(OptionsManager.get("difficulty_easy_selected"));
-                    isValidInput = true;
-                    break;
-                case "3":
-                    currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.MEDIUM;
-                    player2.setComputerDifficulty(currentDifficulty);
-                    System.out.println(OptionsManager.get("difficulty_medium_selected"));
-                    isValidInput = true;
-                    break;
-                case "4":
-                    currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.HARD;
-                    player2.setComputerDifficulty(currentDifficulty);
-                    System.out.println(OptionsManager.get("difficulty_hard_selected"));
-                    isValidInput = true;
-                    break;
-                default:
-                    System.out.println(OptionsManager.get("invalid_choice"));
-                    break;
-            }
-        }
-    }
-
-    /**
-     * Sets up a two-player game.
-     */
-    private void setupTwoPlayerGame() {
-        System.out.println(OptionsManager.get("two_player_selected"));
-
-        // Get player 1's name
-        String player1Name = "";
-        while (player1Name.trim().isEmpty()) {
-            System.out.println(OptionsManager.get("enter_name_player1"));
-            player1Name = scanner.nextLine().trim();
-            if (player1Name.isEmpty()) {
-                System.out.println(OptionsManager.get("invalid_input"));
-            }
-        }
-        player1 = new Player(player1Name, gameTheme);
-
-        // Get player 2's name
-        String player2Name = "";
-        while (player2Name.trim().isEmpty()) {
-            System.out.println(OptionsManager.get("enter_name_player2"));
-            player2Name = scanner.nextLine().trim();
-            if (player2Name.isEmpty()) {
-                System.out.println(OptionsManager.get("invalid_name"));
-            }
-        }
-        player2 = new Player(player2Name, gameTheme);
     }
 
     /**
