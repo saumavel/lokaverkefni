@@ -7,7 +7,7 @@
 
 package is.hi.hbv202g.lokaverkefni.strategy;
 
-import is.hi.hbv202g.lokaverkefni.options.GameTheme;
+import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
 import is.hi.hbv202g.lokaverkefni.model.Move;
 import is.hi.hbv202g.lokaverkefni.model.Paper;
 import is.hi.hbv202g.lokaverkefni.model.Rock;

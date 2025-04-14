@@ -1,8 +1,11 @@
 package is.hi.hbv202g.lokaverkefni.game;
 
-import is.hi.hbv202g.lokaverkefni.options.GameMode;
-import is.hi.hbv202g.lokaverkefni.options.GameTheme;
-import is.hi.hbv202g.lokaverkefni.options.OptionsManager;
+import is.hi.hbv202g.lokaverkefni.options.enums.GameMode;
+import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
+import is.hi.hbv202g.lokaverkefni.options.parsing.InputParser;
+import is.hi.hbv202g.lokaverkefni.options.parsing.MoveNameMapper;
+import is.hi.hbv202g.lokaverkefni.options.translation.TranslationManager;
+import is.hi.hbv202g.lokaverkefni.options.translation.TranslationsInitializer;
 import is.hi.hbv202g.lokaverkefni.score.ScoreManager;
 import is.hi.hbv202g.lokaverkefni.strategy.ComputerPlayerStrategy;
 
@@ -18,11 +21,7 @@ public class GameManager {
     private int consecutiveLosses = 0; // Track consecutive losses
     private GameMode gameMode;
     private ComputerPlayerStrategy.DifficultyLevel currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.EASY;
-
-    // Replace individual score tracking with ScoreManager
     private final ScoreManager scoreManager = new ScoreManager();
-
-    // Track the number of rounds played
     private int roundsPlayed = 0;
 
 
@@ -31,9 +30,8 @@ public class GameManager {
      */
     public GameManager() {
         scanner = new Scanner(System.in);
-
-        // Prompt for language selection at the start
-        OptionsManager.promptLanguageSelection(scanner);
+        TranslationsInitializer.load();
+        TranslationManager.promptLanguageSelection(scanner);
     }
     /**
      * Starts the game flow.
@@ -54,7 +52,7 @@ public class GameManager {
             }
 
             System.out.println(scoreManager.getFinalResultsSummary());
-            System.out.println(OptionsManager.get("thanks_for_playing"));
+            System.out.println(TranslationManager.get("thanks_for_playing"));
     }
 
 
@@ -68,7 +66,7 @@ public class GameManager {
         consecutiveLosses = 0;
         roundsPlayed = 0;
 
-        System.out.println(OptionsManager.get("welcome"));
+        System.out.println(TranslationManager.get("welcome"));
 
         GameConfiguration config = GameSetup.initializeGame(scanner);
         this.player1 = config.player1();
@@ -89,11 +87,11 @@ public class GameManager {
      */
     private boolean playRound() {
         // Display round number
-        System.out.println("\n===== " + OptionsManager.get("round") + " " + (roundsPlayed + 1) + " =====");
+        System.out.println("\n===== " + TranslationManager.get("round") + " " + (roundsPlayed + 1) + " =====");
 
         // Check if player has lost 5 times in a row and show secret message
         if (consecutiveLosses >= 5 && gameMode == GameMode.SINGLE_PLAYER) {
-            System.out.println("\n" + OptionsManager.get("secret_hint") + "\n");
+            System.out.println("\n" + TranslationManager.get("secret_hint") + "\n");
         }
 
         boolean continueGame;
@@ -134,7 +132,7 @@ public class GameManager {
      * @return true if the game should continue, false if the player quit
      */
     private boolean playComputerRound() {
-        System.out.println("\n" + player1.getName() + OptionsManager.get("choose_move"));
+        System.out.println("\n" + player1.getName() + TranslationManager.get("choose_move"));
 
         String[] moveOptions = game.getMoveOptions();
         for (int i = 0; i < moveOptions.length; i++) {
@@ -144,7 +142,7 @@ public class GameManager {
         String moveChoice = scanner.nextLine().toLowerCase();
 
         if (moveChoice.equalsIgnoreCase("q")) {
-            System.out.println(OptionsManager.get("quit_game"));
+            System.out.println(TranslationManager.get("quit_game"));
             return false;
         }
 
@@ -160,7 +158,7 @@ public class GameManager {
         if (moveIndex != null) {
             // Valid move name input
             game.playerSelectsMove(player1, moveIndex);
-            System.out.println(OptionsManager.get("you_chose") + player1.getCurrentMove().getName());
+            System.out.println(TranslationManager.get("you_chose") + player1.getCurrentMove().getName());
         } else {
             try {
                 // Try to interpret as a number
@@ -171,21 +169,21 @@ public class GameManager {
 
                     // Use the player select move method with the appropriate index
                     game.playerSelectsMove(player1, moveIndex);
-                    System.out.println(OptionsManager.get("you_chose") + player1.getCurrentMove().getName());
+                    System.out.println(TranslationManager.get("you_chose") + player1.getCurrentMove().getName());
                 } else {
-                    System.out.println(OptionsManager.get("invalid_choice"));
+                    System.out.println(TranslationManager.get("invalid_choice"));
                     return playComputerRound(); // Ask again instead of defaulting
                 }
             } catch (NumberFormatException e) {
                 // Invalid input - not a number and not a recognized move name
-                System.out.println(OptionsManager.get("invalid_choice_number"));
+                System.out.println(TranslationManager.get("invalid_choice_number"));
                 return playComputerRound(); // Ask again instead of defaulting
             }
         }
 
         // Computer makes its move
         player2.makeComputerMove(player1.getCurrentMove());
-        System.out.println(OptionsManager.get("computer_chose") + player2.getCurrentMove().getName());
+        System.out.println(TranslationManager.get("computer_chose") + player2.getCurrentMove().getName());
 
         return true;
     }
@@ -193,7 +191,7 @@ public class GameManager {
 
     private Integer getMoveIndexFromInput(String input) {
         // Use the OptionsManager method instead of local implementation
-        return OptionsManager.getMoveIndexFromInput(input, gameTheme);
+        return MoveNameMapper.getMoveIndex(input, gameTheme);
     }
 
     /**
@@ -218,7 +216,7 @@ public class GameManager {
      * @return true if the game should continue, false if the player quit
      */
     private boolean getPlayerMove(Player player) {
-        System.out.println("\n" + player.getName() + OptionsManager.get("choose_move"));
+        System.out.println("\n" + player.getName() + TranslationManager.get("choose_move"));
 
         String[] moveOptions = game.getMoveOptions();
         for (int i = 0; i < moveOptions.length; i++) {
@@ -228,7 +226,7 @@ public class GameManager {
         String moveChoice = scanner.nextLine().toLowerCase();
 
         if (moveChoice.equalsIgnoreCase("q")) {
-            System.out.println(player.getName() + OptionsManager.get("player_quit_game"));
+            System.out.println(player.getName() + TranslationManager.get("player_quit_game"));
             return false;
         }
 
@@ -244,7 +242,7 @@ public class GameManager {
         if (moveIndex != null) {
             // Valid move name input
             game.playerSelectsMove(player, moveIndex);
-            System.out.println(player.getName() + OptionsManager.get("player_chose") + player.getCurrentMove().getName());
+            System.out.println(player.getName() + TranslationManager.get("player_chose") + player.getCurrentMove().getName());
             return true;
         } else {
             try {
@@ -256,14 +254,14 @@ public class GameManager {
 
                     // Use the player select move method with the appropriate player and index
                     game.playerSelectsMove(player, moveIndex);
-                    System.out.println(player.getName() + OptionsManager.get("player_chose") + player.getCurrentMove().getName());
+                    System.out.println(player.getName() + TranslationManager.get("player_chose") + player.getCurrentMove().getName());
                     return true;
                 } else {
-                    System.out.println(OptionsManager.get("invalid_choice"));
+                    System.out.println(TranslationManager.get("invalid_choice"));
                     return getPlayerMove(player);
                 }
             } catch (NumberFormatException e) {
-                System.out.println(OptionsManager.get("invalid_choice_number"));
+                System.out.println(TranslationManager.get("invalid_choice_number"));
                 return getPlayerMove(player);
             }
         }
@@ -274,18 +272,18 @@ public class GameManager {
      */
     private void handleUndo() {
         game.undoLastMove();
-        System.out.println(OptionsManager.get("undo_move"));
+        System.out.println(TranslationManager.get("undo_move"));
 
         // If we're in a round where scores were already updated, we need to adjust them
         if (roundsPlayed > 0) {
             // This is a simplified approach - in a real implementation,
             // you might need more sophisticated score tracking for proper undo
-            System.out.println(OptionsManager.get("undo_note"));
+            System.out.println(TranslationManager.get("undo_note"));
         }
 
         // If player has been losing and uses undo, add a little encouragement
         if (consecutiveLosses >= 5) {
-            System.out.println(OptionsManager.get("undo_secret"));
+            System.out.println(TranslationManager.get("undo_secret"));
         }
     }
 
@@ -297,23 +295,23 @@ public class GameManager {
     private void displayRoundResult(String result) {
         // Check if player1 won
         if (result.startsWith(player1.getName() + " wins")) {
-            System.out.println("🎉 " + player1.getName() + OptionsManager.get("player_wins"));
+            System.out.println("🎉 " + player1.getName() + TranslationManager.get("player_wins"));
         }
         // Check if player2 won
         else if (result.startsWith(player2.getName() + " wins")) {
             if (gameMode == GameMode.SINGLE_PLAYER) {
                 // If it is a computer game, then the player is the
                 // computer and the message should be different
-                System.out.println(OptionsManager.get("computer_wins"));
+                System.out.println(TranslationManager.get("computer_wins"));
             } else {
                 // If it is a two player game, then the message should
                 // be the same as if player1 won
-                System.out.println("🎉 " + player2.getName() + OptionsManager.get("player_wins"));
+                System.out.println("🎉 " + player2.getName() + TranslationManager.get("player_wins"));
             }
         }
         // Check if it is a draw
         else if (result.startsWith("It's a draw")) {
-            System.out.println(OptionsManager.get("draw"));
+            System.out.println(TranslationManager.get("draw"));
         }
     }
 
@@ -342,31 +340,31 @@ public class GameManager {
      * Offer the player the option to increase the difficulty level.
      */
     private void offerDifficultyIncrease() {
-        System.out.println(OptionsManager.get("win_streak"));
-        System.out.println(OptionsManager.get("increase_difficulty"));
+        System.out.println(TranslationManager.get("win_streak"));
+        System.out.println(TranslationManager.get("increase_difficulty"));
 
         String response = scanner.nextLine().toLowerCase();
 
-        if (OptionsManager.isAffirmativeResponse(response)) {
+        if (InputParser.isYes(response)) {
             switch (currentDifficulty) {
                 case MAN:
                     currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.EASY;
                     player2.setComputerDifficulty(currentDifficulty);
-                    System.out.println(OptionsManager.get("difficulty_increased_easy"));
+                    System.out.println(TranslationManager.get("difficulty_increased_easy"));
                     break;
                 case EASY:
                     currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.MEDIUM;
                     player2.setComputerDifficulty(currentDifficulty);
-                    System.out.println(OptionsManager.get("difficulty_increased_medium"));
+                    System.out.println(TranslationManager.get("difficulty_increased_medium"));
                     break;
                 case MEDIUM:
                     currentDifficulty = ComputerPlayerStrategy.DifficultyLevel.HARD;
                     player2.setComputerDifficulty(currentDifficulty);
-                    System.out.println(OptionsManager.get("difficulty_increased_hard"));
+                    System.out.println(TranslationManager.get("difficulty_increased_hard"));
                     break;
                 case HARD:
                     // Already at max difficulty
-                    System.out.println(OptionsManager.get("max_difficulty"));
+                    System.out.println(TranslationManager.get("max_difficulty"));
                     break;
             }
             // Reset consecutive wins after increasing difficulty
@@ -381,10 +379,9 @@ public class GameManager {
      * @return True if the player wants to play again, false otherwise.
      */
     private boolean askToPlayAgain() {
-        System.out.println(OptionsManager.get("continue_playing") + roundsPlayed + OptionsManager.get("rounds"));
+        System.out.println(TranslationManager.get("continue_playing") + roundsPlayed + TranslationManager.get("rounds"));
         String response = scanner.nextLine().toLowerCase();
 
-        // Use the new OptionsManager method for yes/no responses
-        return OptionsManager.isAffirmativeResponse(response);
+        return InputParser.isYes(response);
     }
 }

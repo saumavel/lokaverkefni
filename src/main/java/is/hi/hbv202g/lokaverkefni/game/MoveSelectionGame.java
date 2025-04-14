@@ -6,7 +6,7 @@ import is.hi.hbv202g.lokaverkefni.command.PlayMoveCommand;
 import is.hi.hbv202g.lokaverkefni.model.Move;
 import is.hi.hbv202g.lokaverkefni.model.MoveFactory;
 import is.hi.hbv202g.lokaverkefni.model.Result;
-import is.hi.hbv202g.lokaverkefni.options.GameTheme;
+import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
 
 public class MoveSelectionGame {
     private final Player player1;

@@ -1,5 +1,9 @@
 package is.hi.hbv202g.lokaverkefni.options;
 
+import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
+import is.hi.hbv202g.lokaverkefni.options.enums.Language;
+import is.hi.hbv202g.lokaverkefni.options.translation.TranslationManager;
+import is.hi.hbv202g.lokaverkefni.options.translation.TranslationsInitializer;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.ByteArrayInputStream;
@@ -11,12 +15,13 @@ import static org.junit.Assert.*;
 public class OptionsManagerTest {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+
 
     @Before
     public void setUp() {
         // Redirect System.out to capture output
         System.setOut(new PrintStream(outputStream));
+        TranslationsInitializer.load();
 
         // Reset to English for each test
         OptionsManager.setLanguage(Language.ENGLISH);
@@ -24,25 +29,25 @@ public class OptionsManagerTest {
 
     @Test
     public void testGetTranslation() {
-        // Test getting translations in English
-        OptionsManager.setLanguage(Language.ENGLISH);
-        assertEquals("Rock", OptionsManager.get("rock"));
-        assertEquals("Paper", OptionsManager.get("paper"));
-        assertEquals("Scissors", OptionsManager.get("scissors"));
+        // English
+        TranslationManager.setLanguage(Language.ENGLISH);
+        assertEquals("Rock", TranslationManager.get("rock"));
+        assertEquals("Paper", TranslationManager.get("paper"));
+        assertEquals("Scissors", TranslationManager.get("scissors"));
 
-        // Test getting translations in Icelandic
-        OptionsManager.setLanguage(Language.ICELANDIC);
-        assertEquals("Steinn", OptionsManager.get("rock"));
-        assertEquals("Blað", OptionsManager.get("paper"));
-        assertEquals("Skæri", OptionsManager.get("scissors"));
+        // Icelandic
+        TranslationManager.setLanguage(Language.ICELANDIC);
+        assertEquals("Steinn", TranslationManager.get("rock"));
+        assertEquals("Blað", TranslationManager.get("paper"));
+        assertEquals("Skæri", TranslationManager.get("scissors"));
 
-        // Test bathroom theme translations
-        assertEquals("Kúkur", OptionsManager.get("poop"));
-        assertEquals("Klósettpappír", OptionsManager.get("toilet_paper"));
-        assertEquals("Piss", OptionsManager.get("pee"));
+        // Bathroom theme
+        assertEquals("Kúkur", TranslationManager.get("poop"));
+        assertEquals("Klósettpappír", TranslationManager.get("toilet_paper"));
+        assertEquals("Piss", TranslationManager.get("pee"));
 
-        // Test missing translation key
-        assertTrue(OptionsManager.get("nonexistent_key").contains("Missing translation"));
+        // Missing key
+        assertTrue(TranslationManager.get("nonexistent_key").contains("Missing translation"));
     }
 
     @Test
@@ -52,7 +57,7 @@ public class OptionsManagerTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         Scanner scanner = new Scanner(System.in);
 
-        OptionsManager.promptLanguageSelection(scanner);
+        TranslationManager.promptLanguageSelection(scanner);
         assertTrue(outputStream.toString().contains("English selected"));
 
         // Reset output stream
@@ -63,7 +68,7 @@ public class OptionsManagerTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         scanner = new Scanner(System.in);
 
-        OptionsManager.promptLanguageSelection(scanner);
+        TranslationManager.promptLanguageSelection(scanner);
         assertTrue(outputStream.toString().contains("Íslenska valin"));
 
         // Reset output stream
@@ -74,7 +79,7 @@ public class OptionsManagerTest {
         System.setIn(new ByteArrayInputStream(input.getBytes()));
         scanner = new Scanner(System.in);
 
-        OptionsManager.promptLanguageSelection(scanner);
+        TranslationManager.promptLanguageSelection(scanner);
         assertTrue(outputStream.toString().contains("English selected"));
 
         // Reset System.in
@@ -222,7 +227,7 @@ public class OptionsManagerTest {
     @Test
     public void testGetMoveNamesForTheme() {
         // Test standard theme in English
-        OptionsManager.setLanguage(Language.ENGLISH);
+        TranslationManager.setLanguage(Language.ENGLISH);
         String[] standardMoves = OptionsManager.getMoveNamesForTheme(GameTheme.STANDARD);
         assertEquals(3, standardMoves.length);
         assertEquals("Rock", standardMoves[0]);
@@ -237,7 +242,7 @@ public class OptionsManagerTest {
         assertEquals("Pee", bathroomMoves[2]);
 
         // Test standard theme in Icelandic
-        OptionsManager.setLanguage(Language.ICELANDIC);
+        TranslationManager.setLanguage(Language.ICELANDIC);
         standardMoves = OptionsManager.getMoveNamesForTheme(GameTheme.STANDARD);
         assertEquals(3, standardMoves.length);
         assertEquals("Steinn", standardMoves[0]);
@@ -245,7 +250,7 @@ public class OptionsManagerTest {
         assertEquals("Skæri", standardMoves[2]);
 
         // Test bathroom theme in Icelandic
-        bathroomMoves = OptionsManager.getMoveNamesForTheme(GameTheme.BATHROOM);
+        bathroomMoves = (String[]) OptionsManager.getMoveNamesForTheme(GameTheme.BATHROOM);
         assertEquals(3, bathroomMoves.length);
         assertEquals("Kúkur", bathroomMoves[0]);
         assertEquals("Klósettpappír", bathroomMoves[1]);

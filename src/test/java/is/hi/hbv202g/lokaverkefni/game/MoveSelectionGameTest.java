@@ -2,7 +2,7 @@ package is.hi.hbv202g.lokaverkefni.game;
 
 import is.hi.hbv202g.lokaverkefni.model.MoveFactory;
 import is.hi.hbv202g.lokaverkefni.observer.ScoreObserver;
-import is.hi.hbv202g.lokaverkefni.options.GameTheme;
+import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
 import is.hi.hbv202g.lokaverkefni.strategy.ComputerPlayerStrategy;
 import org.junit.Before;
 import org.junit.Test;

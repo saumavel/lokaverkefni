@@ -1,4 +1,8 @@
-package is.hi.hbv202g.lokaverkefni.options;
+package is.hi.hbv202g.lokaverkefni.options.enums;
+
+import is.hi.hbv202g.lokaverkefni.options.OptionsManager;
+import is.hi.hbv202g.lokaverkefni.options.translation.TranslationManager;
+import is.hi.hbv202g.lokaverkefni.options.translation.TranslationsInitializer;
 
 /**
  * Enum representing different game themes.
@@ -16,15 +20,15 @@ public enum GameTheme {
     public String getMoveName(int index) {
         return switch (this) {
             case STANDARD -> switch (index) {
-                case 0 -> OptionsManager.get("rock");
-                case 1 -> OptionsManager.get("paper");
-                case 2 -> OptionsManager.get("scissors");
+                case 0 -> TranslationManager.get("rock");
+                case 1 -> TranslationManager.get("paper");
+                case 2 -> TranslationManager.get("scissors");
                 default -> "Unknown";
             };
             case BATHROOM -> switch (index) {
-                case 0 -> OptionsManager.get("poop");
-                case 1 -> OptionsManager.get("toilet_paper");
-                case 2 -> OptionsManager.get("pee");
+                case 0 -> TranslationManager.get("poop");
+                case 1 -> TranslationManager.get("toilet_paper");
+                case 2 -> TranslationManager.get("pee");
                 default -> "Unknown";
             };
         };
@@ -38,14 +42,14 @@ public enum GameTheme {
     public String[] getMoveNames() {
         return switch (this) {
             case STANDARD -> new String[]{
-                    OptionsManager.get("rock"),
-                    OptionsManager.get("paper"),
-                    OptionsManager.get("scissors")
+                    TranslationManager.get("rock"),
+                    TranslationManager.get("paper"),
+                    TranslationManager.get("scissors")
             };
             case BATHROOM -> new String[]{
-                    OptionsManager.get("poop"),
-                    OptionsManager.get("toilet_paper"),
-                    OptionsManager.get("pee")
+                    TranslationManager.get("poop"),
+                    TranslationManager.get("toilet_paper"),
+                    TranslationManager.get("pee")
             };
         };
     }

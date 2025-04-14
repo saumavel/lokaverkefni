@@ -1,4 +1,4 @@
-package is.hi.hbv202g.lokaverkefni.options;
+package is.hi.hbv202g.lokaverkefni.options.enums;
 
 public enum Language {
     ENGLISH("English"),

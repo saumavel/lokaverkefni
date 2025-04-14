@@ -1,5 +1,8 @@
 package is.hi.hbv202g.lokaverkefni.options;
 
+import is.hi.hbv202g.lokaverkefni.options.enums.GameMode;
+import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
+import is.hi.hbv202g.lokaverkefni.options.enums.Language;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

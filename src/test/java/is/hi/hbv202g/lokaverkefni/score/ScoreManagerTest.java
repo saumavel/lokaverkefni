@@ -1,7 +1,7 @@
 package is.hi.hbv202g.lokaverkefni.score;
 
 import is.hi.hbv202g.lokaverkefni.game.Player;
-import is.hi.hbv202g.lokaverkefni.options.GameTheme;
+import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
