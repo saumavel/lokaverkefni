@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>is.hi.hbv202g.lokaverkefni</groupId>
     <artifactId>Lokaverkefni</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
-    <name>HBV202G Assignment8</name>
+    <name>Lokaverkefni</name>
+    <url>https://github.com/saumavel/lokaverkefni</url>
+    <description>A localized and multiplayer Rock-Paper-Scissors game with multiple difficulty levels, versions,translations, and undo support.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- We define here our own variable "java.version" so that we need to adjust it only in the next line and all other lines can use it then -->
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -30,7 +32,7 @@
     </dependencies>
 
     <build>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (it may be moved to parent pom) -->
             <plugins>
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
                 <plugin>
