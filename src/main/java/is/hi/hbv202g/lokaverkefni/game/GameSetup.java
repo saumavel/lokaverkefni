@@ -71,7 +71,7 @@ public class GameSetup {
         System.out.println(TranslationManager.get("one_player_selected"));
         while (true) {
             String name = scanner.nextLine();
-            if (!name.trim().isEmpty() && name.matches("^[a-zA-Z]+$")) {
+            if (!name.trim().isEmpty() && name.matches("^[a-zA-ZÁÉÍÓÚÝÞÆÖáéíóúýþæö]+$")) {
                 return new Player(name, theme);
             }
             System.out.println(TranslationManager.get("invalid_input"));
@@ -82,7 +82,7 @@ public class GameSetup {
         while (true) {
             System.out.println(TranslationManager.get(promptKey));
             String name = scanner.nextLine();
-            if (!name.trim().isEmpty() && name.matches("^[a-zA-Z]+$")) {
+            if (!name.trim().isEmpty() && name.matches("^[a-zA-ZÁÉÍÓÚÝÞÆÖáéíóúýþæö]+$")) {
                 return new Player(name, theme);
             }
             System.out.println(TranslationManager.get("invalid_input"));
