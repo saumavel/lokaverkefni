@@ -61,19 +61,7 @@ public class OptionsManager {
     }
 
     public static String getDifficultyFromInput(String input) {
-        input = input.toLowerCase().trim();
-
-        if (input.matches("[1-4]")) {
-            return input;
-        }
-
-        for (Map.Entry<String, String> entry : difficultyMap.entrySet()) {
-            if (input.contains(entry.getKey())) {
-                return entry.getValue();
-            }
-        }
-
-        return "wrong";
+        return DifficultyUtils.parseDifficulty(input, difficultyMap);
     }
 
     public static boolean isBathroomThemeSelected(String input) {

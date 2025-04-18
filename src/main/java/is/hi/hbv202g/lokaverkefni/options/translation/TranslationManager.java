@@ -51,6 +51,9 @@ public class TranslationManager {
                 setLanguage(Language.ENGLISH);
                 System.out.println("English selected.");
                 break;
+            }
+            else if (input.isEmpty()) {
+                System.out.println(get("invalid_name_letters"));
             } else {
                 System.out.println("Invalid choice. Please select 1 or 2.");
             }

@@ -9,12 +9,13 @@ import is.hi.hbv202g.lokaverkefni.strategy.ComputerPlayerStrategy;
 import java.util.Scanner;
 
 /**
- * Handles setup flow
+ * Handles setup flow and handles game configuration.
  */
 public class GameSetup {
 
     /**
      * Initializes the game.
+     *
      * @return the game.
      */
     public static GameConfiguration initializeGame(Scanner scanner) {
@@ -81,7 +82,7 @@ public class GameSetup {
         while (true) {
             System.out.println(TranslationManager.get(promptKey));
             String name = scanner.nextLine();
-            if (!name.trim().isEmpty()) {
+            if (!name.trim().isEmpty() && name.matches("^[a-zA-Z]+$")) {
                 return new Player(name, theme);
             }
             System.out.println(TranslationManager.get("invalid_input"));

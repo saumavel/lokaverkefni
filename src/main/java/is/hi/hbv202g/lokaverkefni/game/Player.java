@@ -77,10 +77,6 @@ public class Player implements ScoreSubject {
         this.currentMove = move;
     }
 
-
-
-
-
     /**
      * Increments the player's score by 1.
      * Package-private so it can be accessed by ScoreKeeper.
@@ -118,8 +114,6 @@ public class Player implements ScoreSubject {
         }
     }
 
-    // Observer Pattern methods
-
     @Override
     public void registerObserver(ScoreObserver observer) {
         observers.add(observer);
@@ -135,5 +129,9 @@ public class Player implements ScoreSubject {
         for (ScoreObserver observer : observers) {
             observer.updateScore(player);
         }
+    }
+
+    public GameTheme getTheme() {
+        return theme;
     }
 }
