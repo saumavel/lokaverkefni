@@ -12,10 +12,10 @@ public class ScoreManagerTest {
     private Player player1;
     private Player player2;
 
-    @Before
     /**
      * Sets up the test environment by initializing the ScoreManager and creating test players.
      */
+    @Before
     public void setUp() {
         // Initialize the ScoreManager
         scoreManager = new ScoreManager();
@@ -32,10 +32,10 @@ public class ScoreManagerTest {
         scoreManager.registerPlayer(player2);
     }
 
-    @Test
     /**
      * Tests the initial state of the score manager.
      */
+    @Test
     public void testInitialScores() {
         // Check initial score summary
         String scoreSummary = scoreManager.getScoreSummary();
@@ -47,10 +47,10 @@ public class ScoreManagerTest {
         assertTrue("Rounds played should be 0", scoreSummary.contains("Rounds played: 0"));
     }
 
-    @Test
     /**
      * Testing the updateScore method.
      */
+    @Test
     public void testUpdateScore() {
         // Player 1 wins a round (3 points)
         player1.winRound();
@@ -67,10 +67,10 @@ public class ScoreManagerTest {
         assertTrue("Player 2 should have 3 points", scoreSummary.contains("Player 2: 3"));
     }
 
-    @Test
     /**
      * Tests the recordDraw method.
      */
+    @Test
     public void testRecordDraw() {
         // Record a draw (1 point for each player)
         scoreManager.recordDraw();
@@ -82,10 +82,10 @@ public class ScoreManagerTest {
         assertTrue("Draws should be 1", scoreSummary.contains("Draws: 1"));
     }
 
-    @Test
     /**
      * Tests the roundsPlayed and summary methods.
      */
+    @Test
     public void testRecordRoundPlayed() {
         // Record rounds played
         scoreManager.recordRoundPlayed();
@@ -97,10 +97,10 @@ public class ScoreManagerTest {
         assertTrue("Rounds played should be 3", scoreSummary.contains("Rounds played: 3"));
     }
 
-    @Test
     /**
      * Test if the getWinningPlayer method returns the correct player.
      */
+    @Test
     public void testGetWinningPlayer() {
         // No winner initially (all tied at 0)
         assertNull("No winner should be determined initially", scoreManager.getWinningPlayer());
@@ -119,10 +119,10 @@ public class ScoreManagerTest {
         assertNull("No winner should be determined when tied", scoreManager.getWinningPlayer());
     }
 
-    @Test
     /**
      * Tests the isTied method.
      */
+    @Test
     public void testIsTied() {
         // Initially all players have 0 points, so it's a tie
         assertTrue("Game should be tied initially", scoreManager.isTied());
@@ -141,10 +141,10 @@ public class ScoreManagerTest {
         assertTrue("Game should be tied when top players have same score", scoreManager.isTied());
     }
 
-    @Test
     /**
      * Tests the resetScores method.
      */
+    @Test
     public void testResetScores() {
         // Add some scores
         player1.winRound();
@@ -164,10 +164,10 @@ public class ScoreManagerTest {
         assertTrue("Rounds played should be 0 after reset", scoreSummary.contains("Rounds played: 0"));
     }
 
-    @Test
     /**
      * Tests the getFinalResultsSummary method.
      */
+    @Test
     public void testGetFinalResultsSummary() {
         // Set up a game scenario
         player1.winRound(); // 3 points
@@ -195,10 +195,10 @@ public class ScoreManagerTest {
                 finalResults.contains("Overall Winner: Player 2"));
     }
 
-    @Test
     /**
      * Tests the getFinalResultsSummary method when there is a tie.
      */
+    @Test
     public void testFinalResultsWithTie() {
         // Create a tie scenario
         player1.winRound(); // 3 points
@@ -214,10 +214,10 @@ public class ScoreManagerTest {
                 finalResults.contains("The game ended in a tie"));
     }
 
-    @Test
     /**
      * Tests the integration between the ScoreManager and Player classes.
      */
+    @Test
     public void testScoreObserverIntegration() {
         // Test that the ScoreManager properly observes player wins
 
@@ -235,10 +235,10 @@ public class ScoreManagerTest {
         assertTrue("Player 1 should have 3 points", scoreSummary.contains("Player 1: 3"));
     }
 
-    @Test
     /**
-      Tests the behavior of an empty ScoreManager.
+     Tests the behavior of an empty ScoreManager.
      */
+    @Test
     public void testEmptyScoreManager() {
         // Create a new empty score manager
         ScoreManager emptyManager = new ScoreManager();

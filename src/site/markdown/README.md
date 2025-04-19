@@ -70,7 +70,6 @@ mvn site
 ```
 This generates Javadoc documentation and places it in ⁠target/site/index.html.
 
-- [UML Design Overview](src/site/markdown/design.md)
 ---
 
 ## Design Patterns Implemented
@@ -80,7 +79,7 @@ The Observer pattern defines a one-to-many dependency between objects so that wh
 Template Method Pattern
 
 The project uses JUnit4 for testing. Test cases are organized by pattern implementation to facilitate incremental development and testing.
-## License
+License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 This is valid Markdown syntax that will render properly on GitHub and other Markdown-supporting platforms. It includes all the requested improvements:

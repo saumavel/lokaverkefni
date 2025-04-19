@@ -101,7 +101,6 @@
                 <configuration>
                     <mainClass>is.hi.hbv202g.lokaverkefni.Main</mainClass>
                     <commandlineArgs>-Dfile.encoding=UTF-8</commandlineArgs>
-
                 </configuration>
             </plugin>
             <plugin>

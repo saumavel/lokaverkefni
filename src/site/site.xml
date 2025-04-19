@@ -1,0 +1,8 @@
+<project>
+    <body>
+        <menu name="Design">
+            <item name="UML Design" href="markdown/design.html"/>
+        </menu>
+        <menu ref="reports"/>
+    </body>
+</project>
