@@ -88,3 +88,4 @@ This is valid Markdown syntax that will render properly on GitHub and other Mark
 2. Additional headings and section titles.
 3. A relative hyperlink to the [licence file](LICENSE).
 4. A link to the [GitHub repository](https://github.com/saumavel/lokaverkefni).
+5. A link to our [design document](../markdown/design.md). 
