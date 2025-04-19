@@ -8,6 +8,9 @@ import is.hi.hbv202g.lokaverkefni.model.MoveFactory;
 import is.hi.hbv202g.lokaverkefni.model.Result;
 import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
 
+/**
+ *  A class representing a game where players select moves by index.
+ */
 public class MoveSelectionGame {
     private final Player player1;
     private final Player player2;
@@ -15,6 +18,12 @@ public class MoveSelectionGame {
     private final GameTheme theme;
     private final MoveFactory moveFactory;
 
+    /**
+     *  Constructor for MoveSelectionGame
+     * @param player1 player
+     * @param player2 player
+     * @param theme theme of the game
+     */
     public MoveSelectionGame(Player player1, Player player2, GameTheme theme) {
         this.player1 = player1;
         this.player2 = player2;
@@ -80,6 +89,7 @@ public class MoveSelectionGame {
 
     /**
      * Get the number of moves from the game them
+     * @return number of moves
      */
     public int getNumberOfMoveOptions() {
         return theme.getNumberOfMoves();

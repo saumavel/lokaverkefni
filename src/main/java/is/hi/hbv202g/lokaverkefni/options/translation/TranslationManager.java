@@ -6,10 +6,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ *  Manages translations
+ */
 public class TranslationManager {
     private static Language currentLanguage = Language.ENGLISH;
     private static final Map<String, Map<Language, String>> translations = new HashMap<>();
 
+    /**
+     * Set the language.
+     * @param lang language
+     */
     public static void setLanguage(Language lang) {
         currentLanguage = lang;
     }
@@ -27,6 +34,12 @@ public class TranslationManager {
         return map.getOrDefault(currentLanguage, map.get(Language.ENGLISH));
     }
 
+    /**
+     * Add a translation.
+     * @param key lykill
+     * @param en english
+     * @param is icelandic
+     */
     public static void add(String key, String en, String is) {
         Map<Language, String> langMap = new HashMap<>();
         langMap.put(Language.ENGLISH, en);
@@ -34,6 +47,10 @@ public class TranslationManager {
         translations.put(key, langMap);
     }
 
+    /**
+     * Prompt the user to select a language.
+     * @param scanner scanner
+     */
     public static void promptLanguageSelection(Scanner scanner) {
         setLanguage(Language.ENGLISH); // default
 

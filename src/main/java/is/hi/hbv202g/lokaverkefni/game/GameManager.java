@@ -5,6 +5,10 @@ import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
 import is.hi.hbv202g.lokaverkefni.score.ScoreManager;
 import is.hi.hbv202g.lokaverkefni.strategy.ComputerPlayerStrategy;
 
+/**
+ *  Manages the game flow.
+ *
+ */
 public class GameManager {
     private Player player1;
     private Player player2;

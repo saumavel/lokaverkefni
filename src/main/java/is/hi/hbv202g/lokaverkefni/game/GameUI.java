@@ -303,6 +303,7 @@ public class GameUI {
      * Offers the player a chance to increase difficulty after a winning streak.
      *
      * @param currentDifficulty The current difficulty level.
+     * @param computerPlayer The computer player.
      * @return The new difficulty level.
      */
     public ComputerPlayerStrategy.DifficultyLevel offerDifficultyIncrease(

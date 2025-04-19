@@ -3,9 +3,16 @@ import is.hi.hbv202g.lokaverkefni.options.translation.TranslationManager;
 
 /**
  * Enum representing different game themes.
+ *
  */
 public enum GameTheme {
+    /**
+     * A standard game theme.
+     */
     STANDARD,
+    /**
+     * A bathroom game theme.
+     */
     BATHROOM;
 
     /**

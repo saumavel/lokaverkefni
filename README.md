@@ -1,41 +1,35 @@
-# HBV202GAssignment8
-A Maven project skeleton. The provided Maven POM sets the Java version to 17.
-
-All classes need to be located in Java package `is.hi.hbv202g.assignment8`.
-
-Class and method names of the submitted solution need to be **exactly** the same 
-as in the UML class diagram in the assignment PDF. 
-
-If you like, you can import from project directory `UML` the file 
-`library_system.uxf` into the online UML editor https://www.umletino.com/ 
-and copy/paste from there class and method names: click on a class and then, 
-you can copy from the `properties` window on the right hand side class 
-and method names.
-
-
-# HBV202GAssignment9
-A project implementing the *Composite* pattern, *Observer* pattern, and a variation of the *Template Method* pattern based on JUnit4 tests.
+# Rock, Paper, Scissors - Final Project
+### HBV202G - Software Design and Construction
+### University of Iceland
+A Rock-Paper-Scissors game implementing the *Observer* pattern based on JUnit4 tests.
 ### Overview
-This project demonstrates design pattern implementations through a structured Maven project. It provides test cases to validate each pattern implementation.
+This project is a final assignment for the course *Software Design and Construction* (HBV202G) at the University of Iceland. The project is an extended version of assignment 7 from this course, which was to create a "Rock, Paper, Scissors" game with the help of an AI coding assistant. We have gotten a confirmation from our teachers that the project is suitable to be submitted. 
 ### Project Structure
 - `src/main/java`:
-    - `is.hi.hbv202g.ass9.composite`: Implementation of the *Composite* pattern.
-    - `is.hi.hbv202g.ass9.compositeObserved`: Implementation of the *Composite* pattern combined with the *Observable* pattern.
-    - `is.hi.hbv202g.ass9.compositeObservedTemplateMethod`: Refactored implementation using the *Template Method* pattern.
-
+    - `is.hi.hbv202g.lokaverkefni.command`: Handles game command operations.
+    - `is.hi.hbv202g.lokaverkefni.game`: Handles the game logic and user interface in the game.
+    - `is.hi.hbv202g.lokaverkefni.model`: Refactored implementation using the *Template Method* pattern.
+    - `is.hi.hbv202g.lokaverkefni.observer`: Observer pattern implementation.
+    - `is.hi.hbv202g.lokaverkefni.options`: Game options.
+    - `is.hi.hbv202g.lokaverkefni.score`: Score manager.
+    - `is.hi.hbv202g.lokaverkefni.strategy`: Player strategies.
 - `src/test/java`:
-    - `is.hi.hbv202g.ass9.composite`: Test cases for the Composite implementation.
-    - `is.hi.hbv202g.ass9.compositeObserved`: Test cases for the Composite with Observer implementation.
-    - `is.hi.hbv202g.ass9.compositeObservedTemplateMethod`: Test cases for the Template Method refactoring.
+  - `is.hi.hbv202g.lokaverkefni.command`: Test cases for command implementation.
+  - `is.hi.hbv202g.lokaverkefni.game`: Game.
+  - `is.hi.hbv202g.lokaverkefni.model`: Refactored implementation using the *Template Method* pattern.
+  - `is.hi.hbv202g.lokaverkefni.observer`: Observer pattern implementation.
+  - `is.hi.hbv202g.lokaverkefni.options`: Game options.
+  - `is.hi.hbv202g.lokaverkefni.score`: Score manager.
+  - `is.hi.hbv202g.lokaverkefni.strategy`: Player strategies.
 ## Getting Started
 ### Prerequisites
-- Java JDK 8 or higher
-- Maven
+- Java JDK 17 or higher
+- Maven 3.6+
 ### Installation
 #### Clone the repository:
 ```bash
-git clone https://github.com/yourusername/HBV202GAssignment9.git
-cd HBV202GAssignment9
+git clone https://github.com/saumavel/lokaverkefni.git
+cd lokaverkefni
 ```
 #### Build the project
 ```bash
@@ -49,8 +43,15 @@ Each package contains an ⁠Alltests class that collects all test cases for that
 #### Executing Main Method
 The POM is configured to support executing a main method. You can run the main class using:
 ```bash
-mvn exec:java -Dexec.mainClass="is.hi.hbv202g.ass9.CompositeMain"
+mvn exec:java 
 ```
+## Packaging and Running Without an IDE
+To create a runnable `.jar` file with all dependencies included (fat JAR), run:
+
+```bash
+mvn clean package assembly:single
+```
+
 #### Generating Documentation
 ```bash
 mvn site
@@ -82,4 +83,3 @@ This is valid Markdown syntax that will render properly on GitHub and other Mark
 1. Documentation about executing a main method.
 2. Additional headings and section titles.
 3. A relative hyperlink to the [licence file](LICENSE).
-4. A relative hyperlink to the [Design Documentation file](/src/site/markdown/DesignDocumentation.md).

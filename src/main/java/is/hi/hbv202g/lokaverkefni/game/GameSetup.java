@@ -15,7 +15,7 @@ public class GameSetup {
 
     /**
      * Initializes the game.
-     *
+     * @param scanner scanner
      * @return the game.
      */
     public static GameConfiguration initializeGame(Scanner scanner) {

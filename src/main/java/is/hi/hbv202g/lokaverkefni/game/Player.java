@@ -9,6 +9,9 @@ import is.hi.hbv202g.lokaverkefni.strategy.ComputerPlayerStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  Represents a player in a game of Rock-Paper-Scissors.
+ */
 public class Player implements ScoreSubject {
     private final String name;
     private Move currentMove;
@@ -131,6 +134,11 @@ public class Player implements ScoreSubject {
         }
     }
 
+    /**
+     * Gets the game theme.
+     *
+     * @return The game theme.
+     */
     public GameTheme getTheme() {
         return theme;
     }

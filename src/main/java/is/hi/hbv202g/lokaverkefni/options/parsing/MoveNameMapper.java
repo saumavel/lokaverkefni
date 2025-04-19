@@ -5,6 +5,9 @@ import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  Maps user input to move index.
+ */
 public class MoveNameMapper {
     private static final Map<String, Integer> standard = new HashMap<>();
     private static final Map<String, Integer> bathroom = new HashMap<>();
@@ -19,6 +22,12 @@ public class MoveNameMapper {
         bathroom.put("kúkur", 0); bathroom.put("klósettpappír", 1); bathroom.put("piss", 2);
     }
 
+    /**
+     *  Maps user input to move index.
+     * @param input the user input
+     * @param theme the game theme
+     * @return the move index
+     */
     public static Integer getMoveIndex(String input, GameTheme theme) {
         input = input.toLowerCase().trim();
         Map<String, Integer> map = (theme == GameTheme.STANDARD) ? standard : bathroom;

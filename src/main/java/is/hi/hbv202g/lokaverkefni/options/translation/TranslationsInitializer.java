@@ -1,9 +1,12 @@
 package is.hi.hbv202g.lokaverkefni.options.translation;
 
 /**
- *
+ * Initializes translations
  */
 public class TranslationsInitializer {
+    /**
+     *  Loads translations
+     */
     public static void load() {
         TranslationManager.add("select_language", "🌐 Select language / Veldu tungumál:", "🌐 Veldu tungumál / Select language:");
         TranslationManager.add("english", "English", "Enska");

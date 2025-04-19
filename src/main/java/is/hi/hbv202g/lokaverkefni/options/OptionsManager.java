@@ -29,14 +29,28 @@ public class OptionsManager {
         initializeDifficultyMappings();
     }
 
+    /**
+     * Sets the current language.
+     * @param language The language to set.
+     */
     public static void setLanguage(Language language) {
         currentLanguage = language;
     }
 
+    /**
+     * Gets the current language.
+     * @return The current language.
+     */
     public static Language getCurrentLanguage() {
         return currentLanguage;
     }
 
+    /**
+     * Gets the move index from user input.
+     * @param input The user input.
+     * @param theme The game theme.
+     * @return The move index, or null if not found.
+     */
     public static Integer getMoveIndexFromInput(String input, GameTheme theme) {
         input = input.toLowerCase().trim();
         Map<String, Integer> moveMap = (theme == GameTheme.STANDARD) ? standardMoveMap : bathroomMoveMap;
@@ -54,16 +68,31 @@ public class OptionsManager {
         return null;
     }
 
+    /**
+     * Checks if the input is an affirmative response.
+     * @param input The user input.
+     * @return True if the input is an affirmative response, false otherwise.
+     */
     public static boolean isAffirmativeResponse(String input) {
         input = input.toLowerCase().trim();
         Boolean response = yesNoResponses.get(input);
         return response != null && response;
     }
 
+    /**
+     *  gets the difficulty level from user input
+     * @param input the user input
+     * @return the difficulty level
+     */
     public static String getDifficultyFromInput(String input) {
         return DifficultyUtils.parseDifficulty(input, difficultyMap);
     }
 
+    /**
+     *  Checks if the input is a bathroom theme
+     * @param input the user input
+     * @return true if the input is a bathroom theme
+     */
     public static boolean isBathroomThemeSelected(String input) {
         input = input.toLowerCase().trim();
 
@@ -74,6 +103,11 @@ public class OptionsManager {
                 input.contains("toilet") || input.contains("klósett");
     }
 
+    /**
+     *  Checks if the input is a normal theme
+     * @param input the user input
+     * @return true if the input is a normal theme
+     */
     public static boolean isNormalThemeSelected(String input) {
         input = input.toLowerCase().trim();
 
@@ -85,6 +119,12 @@ public class OptionsManager {
                 input.contains("venjuleg") || input.contains("normal");
     }
 
+    /**
+     *  gets the move names for a theme
+     * @param theme the game theme
+     * @return the move names
+     *
+     **/
     public static String[] getMoveNamesForTheme(GameTheme theme) {
         if (theme == GameTheme.STANDARD) {
             return new String[] {

@@ -15,19 +15,34 @@ import is.hi.hbv202g.lokaverkefni.model.Scissors;
 
 import java.util.Random;
 
+/**
+ * Strategy class for the computer player.
+ */
 public class ComputerPlayerStrategy {
     private final Random random = new Random();
     private DifficultyLevel difficultyLevel;
     private final GameTheme theme;
 
     /**
-     * Difficulty levels for the computer player.
+     * Enum representing the difficulty levels for the computer player.
      */
     public enum DifficultyLevel {
-        MAN,        // Always plays Rock
-        EASY,       // Completely random
-        MEDIUM,     // Some basic strategy
-        HARD        // Advanced strategy
+        /**
+         * The computer player always plays the same move (Rock).
+         */
+        MAN,
+        /**
+         * The computer player selects a move completely at random.
+         */
+        EASY,
+        /**
+         * The computer player uses a basic strategy to select a move.
+         */
+        MEDIUM,
+        /**
+         * The computer player uses an advanced strategy to select a move.
+         */
+        HARD
     }
 
     /**

@@ -13,6 +13,9 @@ public class ScoreManagerTest {
     private Player player2;
 
     @Before
+    /**
+     * Sets up the test environment by initializing the ScoreManager and creating test players.
+     */
     public void setUp() {
         // Initialize the ScoreManager
         scoreManager = new ScoreManager();
@@ -30,6 +33,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Tests the initial state of the score manager.
+     */
     public void testInitialScores() {
         // Check initial score summary
         String scoreSummary = scoreManager.getScoreSummary();
@@ -42,6 +48,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Testing the updateScore method.
+     */
     public void testUpdateScore() {
         // Player 1 wins a round (3 points)
         player1.winRound();
@@ -59,6 +68,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Tests the recordDraw method.
+     */
     public void testRecordDraw() {
         // Record a draw (1 point for each player)
         scoreManager.recordDraw();
@@ -71,6 +83,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Tests the roundsPlayed and summary methods.
+     */
     public void testRecordRoundPlayed() {
         // Record rounds played
         scoreManager.recordRoundPlayed();
@@ -83,6 +98,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Test if the getWinningPlayer method returns the correct player.
+     */
     public void testGetWinningPlayer() {
         // No winner initially (all tied at 0)
         assertNull("No winner should be determined initially", scoreManager.getWinningPlayer());
@@ -102,6 +120,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Tests the isTied method.
+     */
     public void testIsTied() {
         // Initially all players have 0 points, so it's a tie
         assertTrue("Game should be tied initially", scoreManager.isTied());
@@ -121,6 +142,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Tests the resetScores method.
+     */
     public void testResetScores() {
         // Add some scores
         player1.winRound();
@@ -141,6 +165,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Tests the getFinalResultsSummary method.
+     */
     public void testGetFinalResultsSummary() {
         // Set up a game scenario
         player1.winRound(); // 3 points
@@ -169,6 +196,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Tests the getFinalResultsSummary method when there is a tie.
+     */
     public void testFinalResultsWithTie() {
         // Create a tie scenario
         player1.winRound(); // 3 points
@@ -185,6 +215,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+     * Tests the integration between the ScoreManager and Player classes.
+     */
     public void testScoreObserverIntegration() {
         // Test that the ScoreManager properly observes player wins
 
@@ -203,6 +236,9 @@ public class ScoreManagerTest {
     }
 
     @Test
+    /**
+      Tests the behavior of an empty ScoreManager.
+     */
     public void testEmptyScoreManager() {
         // Create a new empty score manager
         ScoreManager emptyManager = new ScoreManager();

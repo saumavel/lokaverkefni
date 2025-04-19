@@ -40,5 +40,6 @@ import org.junit.runners.Suite;
         // Strategy tests
         ComputerPlayerStrategyTest.class
 })
+
 public class AllTests {
 }

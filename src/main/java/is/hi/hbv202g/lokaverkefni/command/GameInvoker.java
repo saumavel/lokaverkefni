@@ -3,6 +3,10 @@ package is.hi.hbv202g.lokaverkefni.command;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  The GameInvoker class is responsible for executing commands and undoing the last command.
+ *  It keeps a history of commands for potential undo.
+ */
 public class GameInvoker {
     private final List<Command> history = new ArrayList<>();
 

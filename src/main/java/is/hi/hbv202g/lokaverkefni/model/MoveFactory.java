@@ -2,9 +2,16 @@ package is.hi.hbv202g.lokaverkefni.model;
 
 import is.hi.hbv202g.lokaverkefni.options.enums.GameTheme;
 
+/**
+ *  Factory class for creating moves based on the game theme.
+ */
 public class MoveFactory {
     private final GameTheme theme;
 
+    /**
+     *  Constructor for the MoveFactory class.
+     * @param theme The game theme
+     */
     public MoveFactory(GameTheme theme) {
         this.theme = theme;
     }
