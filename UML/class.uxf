@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>550</x>
+      <y>300</y>
+      <w>480</w>
+      <h>400</h>
+    </coordinates>
+    <panel_attributes>is.hi.hbv202g.lokaverkefni.game::Player
+--
+-name: String
+-currentMove: Move
+-isComputer: boolean
+-score = 0: int
+-computerStrategy: ComputerPlayerStrategy
+-theme: GameTheme
+-observers = new ArrayList(): List&lt;ScoreObserver&gt;
+--
++Player(String name, GameTheme theme): ctor
++Player(boolean isComputer, GameTheme theme): ctor
++getName(): String
++getCurrentMove(): Move
++setMove(Move move): void
++incrementScoreInternal(): void
++winRound(): void
++setComputerDifficulty(ComputerPlayerStrategy.DifficultyLevel level): void
++makeComputerMove(Move opponentLastMove): void
++registerObserver(ScoreObserver observer): void
++removeObserver(ScoreObserver observer): void
++notifyObservers(Player player): void
++getTheme(): GameTheme
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>40</x>
+      <y>40</y>
+      <w>390</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>is.hi.hbv202g.lokaverkefni.command::PlayMoveCommand
+--
+-player: Player
+-newMove: Move
+-previousMove: Move
+--
++PlayMoveCommand(Player player, Move newMove): ctor
++execute(): void
++undo(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>50</y>
+      <w>320</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+is.hi.hbv202g.lokaverkefni.command::Command
+--
+--
+~execute(): void
+~undo(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>270</y>
+      <w>340</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>is.hi.hbv202g.lokaverkefni.command::GameInvoker
+--
+-history = new ArrayList(): List&lt;Command&gt;
+--
++executeCommand(Command command): void
++undoLastCommand(): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
