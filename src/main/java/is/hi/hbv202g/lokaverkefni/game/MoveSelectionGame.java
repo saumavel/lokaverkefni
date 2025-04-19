@@ -84,4 +84,33 @@ public class MoveSelectionGame {
     public int getNumberOfMoveOptions() {
         return theme.getNumberOfMoves();
     }
+
+    /**
+     * Gets the game theme.
+     *
+     * @return The game theme
+     */
+    public GameTheme getTheme() {
+        return theme;
+    }
+
+    /**
+     * Gets the game theme.
+     * For backward compatibility with GameUI.
+     *
+     * @return The game theme
+     */
+    public GameTheme getGameTheme() {
+        return theme;
+    }
+
+    /**
+     * Gets the name of a move by its index.
+     *
+     * @param index The index of the move
+     * @return The name of the move
+     */
+    public String getMoveName(int index) {
+        return theme.getMoveNames()[index];
+    }
 }
